@@ -4,6 +4,16 @@ const jwt = require("jsonwebtoken");
 const argon2 = require("argon2");
 const Auth = require("./auth.model");
 
+// app.post("/refresh" , async(req,res) => {
+//     try {
+//         const refreshToken = req.body;
+//         const verification = jwt.verify(refreshToken,"SECRET@1991");
+//         const user = await Auth.findOne({email:verification.email});
+//     } catch (error) {
+        
+//     }
+// })
+
 app.post("/signup" , async(req,res) => {
     const { name,email,password,age} = req.body;
     const token = req.headers["authorization"];
