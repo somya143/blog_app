@@ -35,7 +35,7 @@ app.post("/signup" , async(req,res) => {
 
     const user = new Auth({ name,email,password:hash,age });
     await user.save();
-    return res.status(201).send("Viewer created successfully");
+    return res.status(201).send({message:"Viewer created successfully" , user});
 })
 
 app.post("/login" , async(req,res) => {
