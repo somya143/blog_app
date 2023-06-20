@@ -6,7 +6,7 @@ const initialBlogState = {
     isError : false
 }
 
-const blogReducer = (state= initialBlogState , {type,payload}) => {
+export const blogReducer = (state= initialBlogState , {type,payload}) => {
     switch(type){
         case blog_loading : {
             return {
