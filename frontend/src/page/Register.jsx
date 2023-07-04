@@ -39,37 +39,37 @@ const dispatch = useDispatch();
   }else
 
   return (
-    <>
-    <Box margin="auto" w="50%" mt={"40px"} borderRadius={"10px"} boxShadow={"rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;"} >
-        <Heading color={"teal.500"}>
+    <Box W={"100vw"} h={"180vh"} backgroundImage={"https://images.unsplash.com/photo-1543599538-a6c4f6cc5c05?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2lnbiUyMHVwfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"} backgroundRepeat={"no-repeat"} backgroundSize={"100%"} >
+    <Box w="50%" mt={"0"} borderRadius={"10px"} position={"fixed"} left={"350"} top={"20"} zIndex={"1000"} >
+        <Heading color={"orange"} fontSize={"3.2rem"} fontWeight={700} fontFamily={"sans-serif"} pb={"30px"} textDecoration={"underline"}>
             Register Yourself Here
         </Heading>
     <form action="" onSubmit={handleSubmit}>
  <FormControl>
     
- <FormLabel  mt={"30px"} m={"10px"} color={"teal.500"}>Name :</FormLabel>
+ <FormLabel  mt={"30px"} m={"10px"} color={"green.300"}>Name :</FormLabel>
    <Input type='text' onChange={handleChange} name='name' />
 
-   <FormLabel m={"10px"} color={"teal.500"}>Email address :</FormLabel>
+   <FormLabel m={"10px"} color={"green.300"}>Email address :</FormLabel>
    <Input type='email' onChange={handleChange} name='email' />
 
-  <FormLabel m={"10px"} color={"teal.500"}>Password :</FormLabel>
+  <FormLabel m={"10px"} color={"green.300"}>Password :</FormLabel>
    <Input type='Password' onChange={handleChange} name='password' />
 
-   <FormLabel m={"10px"} color={"teal.500"}>Age :</FormLabel>
+   <FormLabel m={"10px"} color={"green.300"}>Age :</FormLabel>
    <Input type='Number' onChange={handleChange} name='age' />
 
-   <Select placeholder='Select Gender :' mt={"30px"} color={"teal.500"} fontWeight={"bold"} onChange={handleChange} name='gender'>
+   <Select placeholder='Select Gender :' mt={"30px"} color={"green.300"} fontWeight={"bold"} onChange={handleChange} name='gender'>
   <option value='Male'>Male</option>
   <option value='Female'>Female</option>
   <option value='Other'>Other</option>
 </Select>
 </FormControl>
 
-<Button type='submit' mt={"30px"} w={"100%"} h={"3rem"} fontSize={"27px"} variant={"ghost"} backgroundColor={"teal.500"} color={"#fff"}>Register</Button>
+<Button type='submit' mt={"30px"} w={"100%"} h={"3rem"} fontSize={"27px"} variant={"ghost"} backgroundColor={"green.300"} color={"#fff"}>Register</Button>
 </form>    
 </Box>
-    </>
+    </Box>
   )
 }
 

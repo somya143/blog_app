@@ -32,8 +32,8 @@ const Sidebar = () => {
     top="0"
     left="0"
     >
-      <Box border={"2px solid white"}  w={"100%"} h={"200px"} color={"#fff"} fontSize={"20px"} fontFamily={""}>
-      <Text mt={"1rem"} fontWeight={"bold"} fontSize={"25px"}>User Details</Text>
+      <Box border={"3px solid green"}  w={"100%"} h={"200px"} color={"orange"} fontSize={"20px"} fontFamily={"sans-serif"}>
+      <Text mt={"1rem"} fontWeight={"bold"} fontSize={"25px"} textDecoration={"underline"}>User Details</Text>
       {
           name && (
             <Flex mt={"1rem"}>
@@ -52,28 +52,28 @@ const Sidebar = () => {
         }
       </Box>
 
-    <Box border={"2px solid"} p={4} color={"white"} mt={"3rem"}>
-        <Box p={6} position={"relative"} border={"1px solid"} color={"white"}>
-            <Text fontSize={"25px"} fontWeight={500} color={"#fff"}>
+    <Box border={"2px solid"} p={4} color={"green.400"} mt={"3rem"}>
+        <Box p={6} position={"relative"} border={"1px solid"} color={"green.400"}>
+            <Text fontSize={"25px"} fontWeight={500} color={"orange"} textDecoration={"underline"}>
               Daily Blogs
             </Text>
             <List fontWeight="400" fontSize="25px">
               <ListItem my={10} alignItems={"center"}>
-                  <Link as={ReachLink} to="/" color={"#fff"} >
+                  <Link as={ReachLink} to="/" color={"orange"} >
                     <ListIcon as={FcHome}  mr={4} />
                     Home
                   </Link>
               </ListItem>
 
               <ListItem my={9} alignItems={"center"}>
-                  <Link as={ReachLink} to="/trending" color={"#fff"} >
+                  <Link as={ReachLink} to="/trending" color={"orange"} >
                     <ListIcon as={FcBullish}  mr={3} />
                      Trending
                   </Link>
               </ListItem>
 
               <ListItem my={9} alignItems={"center"}>
-                  <Link as={ReachLink} to="/write" color={"#fff"} >
+                  <Link as={ReachLink} to="/write" color={"orange"} >
                     <ListIcon as={FcEditImage}  mr={4} />
                      Write
                   </Link>
@@ -82,9 +82,9 @@ const Sidebar = () => {
             </Box>
       </Box>
 
-      <Box  w={"100%"} color={"#fff"} fontSize={"25px"} mt={"3rem"}>
+      <Box  w={"100%"} color={"#fff"} fontSize={"25px"} mt={"2rem"}>
        
-        <Button colorScheme='facebook' width={"100%"} onClick={handleClick}  >
+        <Button backgroundColor={"green"} color={"#fff"} fontSize={"25px"} width={"100%"} onClick={handleClick}  >
           {token? "Logout" : "Login"}
         </Button>
       </Box>

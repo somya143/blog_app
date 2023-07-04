@@ -3,6 +3,7 @@ import Register from "../page/Register";
 import Home from "../page/Home";
 import Login from "../page/Login";
 import Blog from "../page/Blog";
+import Write from "../page/Write";
 
 const AllRoutes = () => {
   return (
@@ -12,6 +13,7 @@ const AllRoutes = () => {
         <Route path="/register" element={<Register></Register>}></Route>
         <Route path="/login" element={<Login></Login>}></Route>
         <Route path="/blogs" element={<Blog></Blog>}></Route>
+        <Route path="/write" element={<Write />}></Route>
      </Routes>
     </div>
   )

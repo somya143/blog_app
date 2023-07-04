@@ -6,7 +6,7 @@ const initialBlogState = {
     isError : false
 }
 
-export const blogReducer = (state= initialBlogState , {type,payload}) => {
+ const blogReducer = (state= initialBlogState , {type,payload}) => {
     switch(type){
         case get_blog_loading : {
             return {
@@ -96,3 +96,5 @@ export const blogReducer = (state= initialBlogState , {type,payload}) => {
         default : return state
     }
 }
+
+export default blogReducer;

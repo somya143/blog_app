@@ -38,26 +38,26 @@ const Login = () => {
         return <h1>Something went wrong...</h1>
       }else
   return (
-    <>
-     <Box margin="auto" w="50%" mt={"40px"} borderRadius={"10px"} boxShadow={"rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;"} >
-        <Heading color={"teal.500"}>
+    <Box w={"100vw"} h={"100vh"} backgroundImage={"https://images.unsplash.com/photo-1497005367839-6e852de72767?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8c2lnbiUyMHVwfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"} backgroundRepeat={"no-repeat"} backgroundSize={"100%"}>
+     <Box margin="auto" w="50%" borderRadius={"10px"}  >
+        <Heading color={"orange"} fontSize={"3.2rem"} fontWeight={700} fontFamily={"sans-serif"} pb={"30px"} textDecoration={"underline"}>
             Login Here
         </Heading>
     <form action="" onSubmit={handleSubmit}>
  <FormControl>
     
-   <FormLabel m={"10px"} color={"teal.500"}>Email address :</FormLabel>
-   <Input type='email' onChange={handleChange} name='email' />
+   <FormLabel m={"10px"} color={"green.300"}>Email address :</FormLabel>
+   <Input type='email' color={"green.300"} onChange={handleChange} name='email' />
 
-  <FormLabel m={"10px"} color={"teal.500"}>Password :</FormLabel>
-   <Input type='Password' onChange={handleChange} name='password' />
+  <FormLabel m={"10px"} color={"green.300"}>Password :</FormLabel>
+   <Input type='Password' color={"green.300"} onChange={handleChange} name='password' />
  
 </FormControl>
 
-<Button type='submit' mt={"30px"} w={"100%"} h={"3rem"} fontSize={"27px"} variant={"ghost"} backgroundColor={"teal.500"} color={"#fff"}>Login</Button>
+<Button type='submit' mt={"30px"} w={"100%"} h={"3rem"} fontSize={"27px"} variant={"ghost"} backgroundColor={"green.300"} color={"#fff"}>Login</Button>
 </form>    
 </Box>
-    </>
+    </Box>
   )
 }
 
