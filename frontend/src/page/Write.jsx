@@ -11,7 +11,7 @@ const Write = () => {
   const [title , setTitle] = useState("");
   const [content , setContent] = useState("");
   const [image , setImage] = useState("");
-  const { token } = useSelector((store) => store.auth)
+  const { token } = useSelector((store) => store.auth);
   const {isLoading, isError, blog} = useSelector((store) => store.blogs)
   const { loginAlert } = useLoginAlert()
   const dispatch = useDispatch()
@@ -20,16 +20,20 @@ const Write = () => {
     e.preventDefault();
     if(!token){
       return loginAlert()
-    }else{
-      dispatch(createBlog({title,content,image}))
     }
+
+    dispatch(createBlog({title,content,image,token}))
+    setTitle("")
+    setContent("")
+    setImage("")
     
   }
+
    if(isLoading){
     return <Loading />
    }else if(isError){
     return <Error />
-   }
+   }else
 
   return (
    <Box w={"100vw"} h={"100vh"} backgroundImage={"https://images.unsplash.com/photo-1662643500140-7c2fdf816dd2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTIxfHx3cml0ZSUyMGJsb2dzfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"} backgroundRepeat={"no-repeat"} backgroundSize={"cover"}>

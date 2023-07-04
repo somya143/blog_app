@@ -14,12 +14,21 @@ export const getBlog = () =>  async(dispatch) => {
     }
 }
 
-export const createBlog = () => async(dispatch) => {
+export const createBlog = ({title,content,image,token}) => async(dispatch) => {
     dispatch({ type: post_blog_loading });
     try {
-        const response = await axios.post("http://localhost:8080/blogs");
-        dispatch({ type: post_blog_success , payload: response.data});
-        return response.data;
+        const { data } = await axios_instance.post(
+            `http://localhost:8080/blogs`,
+            { title, content, image },
+            {
+              headers: {
+                authorization: token,
+              },
+            }
+          );
+        dispatch({ type: post_blog_success , payload: data});
+        console.log(data)
+        
     } catch (error) {
         dispatch({ type: post_blog_failure , payload: error.message });
     }

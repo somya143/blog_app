@@ -41,6 +41,7 @@ const initialBlogState = {
             return {
                 ...state,
                 isError : false,
+                isLoading : false,
                 blog : [payload,...state.blog]
             }
         }
