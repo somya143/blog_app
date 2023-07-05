@@ -5,11 +5,12 @@ export const getRegister = (cred) => async(dispatch) => {
     dispatch({type: auth_register_loading})
     try {
     const response = await axios.post("http://localhost:8080/auths/signup", cred);
-    dispatch({type: auth_register_success , payload : response.data});
+    dispatch({type: auth_register_success , payload : response.data})
     console.log(response.data)
     return response.data; 
     } catch (error) {
         dispatch({type: auth_register_failure , payload : error.message})
+        
     }
 }
 

@@ -1,7 +1,5 @@
-
 import './App.css';
 import AllRoutes from './Routes/AllRoutes';
-import Home from './page/Home';
 
 function App() {
   return (

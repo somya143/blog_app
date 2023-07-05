@@ -3,7 +3,7 @@ import React from 'react'
 
 const Error = () => {
   return (
-    <Box>
+    <Box m={"auto"}>
         <Image src='https://thumbs.gfycat.com/BewitchedShamefulDobermanpinscher-size_restricted.gif' alt='Something went wrong' />
     </Box>
   )

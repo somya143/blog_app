@@ -15,6 +15,8 @@ import {
 
   import { useDispatch,useSelector } from "react-redux";
 import { getLogin } from '../redux/auth/auth.action';
+import Loading from '../components/Loading';
+import Error from "../components/Error";
 
 const Login = () => {
     const [login , setLogin] = useState({});
@@ -33,15 +35,16 @@ const Login = () => {
       }
     
       if(isLoading){
-        return <h1>Loading...</h1>
+        return <Loading />
       }else if(isError){
-        return <h1>Something went wrong...</h1>
+        return <Error />
       }else
   return (
     <Box w={"100vw"} h={"100vh"} backgroundImage={"https://images.unsplash.com/photo-1497005367839-6e852de72767?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8c2lnbiUyMHVwfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"} backgroundRepeat={"no-repeat"} backgroundSize={"100%"}>
+     
      <Box margin="auto" w="50%" borderRadius={"10px"}  >
         <Heading color={"orange"} fontSize={"3.2rem"} fontWeight={700} fontFamily={"sans-serif"} pb={"30px"} textDecoration={"underline"}>
-            Login Here
+            Login 
         </Heading>
     <form action="" onSubmit={handleSubmit}>
  <FormControl>

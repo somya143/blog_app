@@ -11,6 +11,7 @@ const Home = () => {
          <Box display={"flex"} justifyContent={"space-around"} mt={"8rem"}>
             <Button variant={"ghost"} backgroundColor={"green.300"} textDecoration={"underline"}> <Link to="/register">Register Yourself</Link> </Button>
             <Button variant={"ghost"} backgroundColor={"green.300"} textDecoration={"underline"}> <Link to="/login">If already an user, then login and continue.</Link> </Button>
+            <Button variant={"ghost"} backgroundColor={"green.300"} textDecoration={"underline"}> <Link to="/blogs">Read Blogs</Link> </Button>
          </Box>
     </Box>
     </Box>
