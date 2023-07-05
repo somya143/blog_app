@@ -18,7 +18,7 @@ import {
 import { getRegister } from '../redux/auth/auth.action';
 import Loading from '../components/Loading';
 import Error from '../components/Error';
-import { useNavigate, Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
 const [register , setRegister] = useState({});
@@ -46,10 +46,7 @@ toast({
   isClosable: true,
 });
 }
-const toaster={
-  successToast,
-  failToast
-}
+
 const handleChange = (e) => {
       const {name, value} = e.target;
       setRegister({...register , 
@@ -64,9 +61,15 @@ const handleChange = (e) => {
   }
   useEffect(() => {
     if(isAuth){
-      navigate("/login")
+      toast({
+        title: "Account created successfully",
+        status: "success",
+        position: "top",
+        duration: 2000,
+        isClosable: true,
+      }) && navigate("/login")
     }
-  },[isAuth,navigate])
+  },[isAuth,navigate,toast])
   
   if(isLoading){
     return <Loading />

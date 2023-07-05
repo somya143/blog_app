@@ -1,27 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     FormControl,
     FormLabel,
-    FormErrorMessage,
-    FormHelperText,
     Input,
-    VStack,
     Box,
-    Text,
     Heading,
-    Select,
-    Button
+    Button,
+    useToast
   } from '@chakra-ui/react';
 
-  import { useDispatch,useSelector } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { getLogin } from '../redux/auth/auth.action';
 import Loading from '../components/Loading';
 import Error from "../components/Error";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
     const [login , setLogin] = useState({});
     const {isAuth,isError,isLoading} = useSelector((store) => store.auth)
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const toast = useToast()
       const handleChange = (e) => {
           const {name, value} = e.target;
           setLogin({...login , 
@@ -33,6 +32,17 @@ const Login = () => {
        e.preventDefault();
        dispatch(getLogin(login))
       }
+      useEffect(() => {
+        if(isAuth){
+          toast({
+            title: "Login successful",
+            status: "success",
+            position: "top",
+            duration: 2000,
+            isClosable: true,
+          }) && navigate("/blogs")
+        }
+      }, [isAuth,navigate,toast])
     
       if(isLoading){
         return <Loading />

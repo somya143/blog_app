@@ -18,7 +18,7 @@ const initialBlogState = {
         case get_blog_success : {
             return {
                 ...state,
-                blog : payload,
+                blog : [...payload],
                 isLoading : false,
                 isError : false
             }

@@ -8,6 +8,7 @@ export const getBlog = () =>  async(dispatch) => {
     try {
         const response = await axios.get("http://localhost:8080/blogs");
         dispatch({type: get_blog_success , payload : response.data});
+        console.log(response.data)
         return response.data
     } catch (error) {
         dispatch({type: get_blog_failure , payload: error.message})

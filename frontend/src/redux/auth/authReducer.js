@@ -2,7 +2,7 @@ import { auth_login_failure, auth_login_loading, auth_login_success, auth_regist
 
 const token = localStorage.getItem("token")
 const initialState = {
-    isAuth : false,
+    isAuth : !false,
     isLoading : false,
     isError : false,
     token : token
@@ -56,6 +56,7 @@ switch(type){
         ...state,
         isError: true,
         isLoading: false,
+        isAuth:false
     }
  }
  case auth_signout : {
