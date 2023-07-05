@@ -22,28 +22,20 @@ app.post("/refresh", async (req, res) => {
   });
 
 app.post("/signup" , async(req,res) => {
-    const { name,email,password,age} = req.body;
-    const token = req.headers["authorization"];
-    const hash = await argon2.hash(password);
     try {
-        if(token){
-            let decoded = jwt.decode(token , "SECRET@1991");
-            if(decoded && decoded.role === "admin"){
-                const user = new Auth({name, email, password:hash, age, role:"author"});
-                await user.save();
-                return res.status(201).send("Author created successfully")
-            }else{
-                return res.status(403).send("You are not allowed to create author")
-            }
-        }
-    } catch (error) {
-        return res.status(401).send("Non admin user tried to create author")
+      const { name, email, password } = req.body;
+      const hash = await argon2.hash(password);
+      let user = await Auth.create({ name, email, password: hash });
+ 
+    res.send({
+      error: false,
+      message: "user created successfully." ,user
+      
+    }) } catch (error) {
+      res.send({ error: true, message: error.message });
     }
-
-    const user = new Auth({ name,email,password:hash,age });
-    await user.save();
-    return res.status(201).send({message:"Viewer created successfully" , user});
-})
+    
+} )
 
 app.post("/login" , async(req,res) => {
     const { email , password } = req.body
