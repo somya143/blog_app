@@ -7,11 +7,13 @@ app.get("/" , async(req,res) => {
     try {
         const blog = await Blog.find().sort({_id:-1}).populate({path: "author" , select:["name","_id","email","age"]})
         .populate({path: "comment.commentAuthor" , select:["name","_id","email","age"]})
-        .populate({path: "likes" , select: ["name","_id","email","age"]})
+        .populate({path: "likes" , select: ["name","_id","email","age"]});
+        
         if(!blog){
             return res.status(400).send("blog not found")
         }else{
-            return res.status(201).send({message:"blog found successfully", blog})
+            console.log(blog)
+            return res.status(200).send({message:"blog found successfully", blog})
         }
     } catch (error) {
          return res.status(401).send(error.message)
@@ -35,7 +37,7 @@ app.post("/" , authMiddleware ,async(req,res) => {
  const {title,content,image} = req.body;
  try {
     const post = await (await Blog.create({author:req.id,title,content,image})).populate({path:"author" , select:["name","_id","email","age"]})
-    //console.log(post)
+    console.log(post)
     return res.send({message:"blog created succesfully" , post})
  } catch (error) {
     return res.send(error.message)
@@ -50,7 +52,7 @@ app.delete("/:id" , authMiddleware , async(req,res) => {
             return res.send("You are not authorized to delete this blog")
         }else{
          const deleteBlog = await Blog.findByIdAndDelete(id);
-         return res.send({message:"blog deleted successfully"})
+         return res.send({message:"blog deleted successfully" , deleteBlog})
         }
         
     } catch (error) {

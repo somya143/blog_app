@@ -16,7 +16,6 @@ app.post("/refresh", async (req, res) => {
       });
       res.send({ error: false, token, message: "new token generated" });
     } catch (e) {
-      // redis.push(rToken)
       res.send({ error: true, message: e.message });
     }
   });
