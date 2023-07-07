@@ -3,17 +3,16 @@ import { delete_blog_loading, delete_blog_success, get_blog_failure, get_blog_lo
 import { axios_instance } from "../../utils/axios_instance";
 
 
-export const getBlog = () =>  async(dispatch) => {
-    dispatch({ type: get_blog_loading});
-    try {
-        const response = await axios.get("http://localhost:8080/blogs");
-        dispatch({type: get_blog_success , payload : response.data});
-        console.log(response.data)
-        return response.data
-    } catch (error) {
-        dispatch({type: get_blog_failure , payload: error.message})
+export const getBlogs = () => async (dispatch) => {
+    dispatch({ type: get_blog_loading });
+    let { data } =  await axios.get(`http://localhost:8080/blogs`);
+    if (data.error) {
+      return dispatch({ type: get_blog_failure });
     }
-}
+    dispatch({ type: get_blog_success, payload: data });
+    console.log(Array.isArray(data))
+  };
+
 
 export const createBlog = ({title,content,image,token}) => async(dispatch) => {
     dispatch({ type: post_blog_loading });
@@ -28,10 +27,11 @@ export const createBlog = ({title,content,image,token}) => async(dispatch) => {
             }
           );
         dispatch({ type: post_blog_success , payload: data});
-        console.log(data)
+        console.log(Array.isArray(data))
         
     } catch (error) {
         dispatch({ type: post_blog_failure , payload: error.message });
+        console.log(error.message)
     }
 }
 

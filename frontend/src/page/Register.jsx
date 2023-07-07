@@ -22,30 +22,11 @@ import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
 const [register , setRegister] = useState({});
-const {isAuth,isError,isLoading} = useSelector((store) => store.auth)
+const {isSignUp,isError,isLoading} = useSelector((store) => store.auth)
 const dispatch = useDispatch();
 const toast = useToast();
 const navigate = useNavigate();
 
-const successToast =  ()=>{
-  toast({
-      title: 'Account Created',
-      description: "You Have Successfully Created Account!",
-      status: 'success',
-      duration: 4000,
-      isClosable: true,
-  });
-
-}
-const failToast = () =>{
-toast({
-  title: "Failed.",
-  description: "Sign up failed!!",
-  status: "error",
-  duration: 3000,
-  isClosable: true,
-});
-}
 
 const handleChange = (e) => {
       const {name, value} = e.target;
@@ -60,7 +41,7 @@ const handleChange = (e) => {
     
   }
   useEffect(() => {
-    if(isAuth){
+    if(isSignUp){
       toast({
         title: "Account created successfully",
         status: "success",
@@ -69,7 +50,7 @@ const handleChange = (e) => {
         isClosable: true,
       }) && navigate("/login")
     }
-  },[isAuth,navigate,toast])
+  }, [isSignUp,navigate,toast])
   
   if(isLoading){
     return <Loading />

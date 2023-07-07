@@ -5,7 +5,7 @@ import blogReducer from "./blog/blogReducer";
 
 const rootReucer = combineReducers({
     auth: authReducer,
-    blogs: blogReducer
+    blog: blogReducer
 });
 
 const createComposer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

@@ -16,6 +16,8 @@ const Sidebar = () => {
   const navigate = useNavigate();
   const name = token? jwtDecode(token).name : null;
   const email = token? jwtDecode(token).email : null;
+  console.log(name)
+  console.log(email)
   const handleClick = () => {
       token? dispatch(getSignout()) : navigate("/login")
   }

@@ -6,15 +6,17 @@ import useLoginAlert from '../custom/useLoginAlert';
 import { createBlog } from '../redux/blog/blog.action';
 import Loading from '../components/Loading';
 import Error from '../components/Error';
+import { useNavigate } from "react-router-dom";
 
 const Write = () => {
   const [title , setTitle] = useState("");
   const [content , setContent] = useState("");
   const [image , setImage] = useState("");
   const { token } = useSelector((store) => store.auth);
-  const {isLoading, isError, blog} = useSelector((store) => store.blogs)
+  const {isLoading, isError} = useSelector((store) => store.blog)
   const { loginAlert } = useLoginAlert()
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -44,6 +46,7 @@ const Write = () => {
         <Heading color={"orange"} fontSize={"3.2rem"} fontWeight={700} fontFamily={"sans-serif"} pb={"30px"} textDecoration={"underline"}>
             Post Your Blogs
         </Heading>
+    
     <form action="" onSubmit={handleSubmit}>
  <FormControl>
     
@@ -60,7 +63,7 @@ const Write = () => {
 </FormControl>
 
 <Button type='submit' mt={"30px"} w={"100%"} h={"3rem"} fontSize={"27px"} fontWeight={700} backgroundColor={"green.300"} color={"#fff"}>Post Blog</Button>
-</form>    
+</form>
 </Box>
 </Center>
 </Flex>

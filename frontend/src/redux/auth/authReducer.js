@@ -1,11 +1,15 @@
 import { auth_login_failure, auth_login_loading, auth_login_success, auth_register_failure, auth_register_loading, auth_register_success, auth_signout } from "./auth.actionType"
 
 const token = localStorage.getItem("token")
+const refreshToken = localStorage.getItem("refreshToken")
+
 const initialState = {
-    isAuth : !false,
+    isAuth : !!token,
     isLoading : false,
     isError : false,
-    token : token
+    token,
+    refreshToken,
+    isSignUp : false
 } 
 
 const authReducer = (state= initialState , {type,payload}) => {
@@ -20,15 +24,15 @@ switch(type){
  case auth_register_success : {
     return {
         ...state,
+        isAuth: false,
         isLoading : false,
         isError : false,
-        isAuth : true,
+        isSignUp : true
     }
  }
  case auth_register_failure : {
     return {
         ...state,
-        isAuth: false,
         isError: true,
         isLoading: false
     }
@@ -36,19 +40,21 @@ switch(type){
  case auth_login_loading : {
     return {
         ...state,
-        isAuth: false,
         isLoading: true,
         isError: false,
     }
  }
  case auth_login_success : {
     localStorage.setItem("token",payload.token)
+    localStorage.setItem("refreshToken",payload.token)
     return {
         ...state,
         isAuth: true,
         isError: false,
         isLoading: false,
-        token : payload.token
+        isSignUp : false,
+        token : payload.token,
+        refreshToken : payload.refreshToken
     }
  }
  case auth_login_failure : {
@@ -60,12 +66,16 @@ switch(type){
     }
  }
  case auth_signout : {
-    localStorage.setItem("token" , null)
+    localStorage.removeItem("token")
+    localStorage.removeItem("refreshToken")
     return {
+        ...state,
         isAuth: false,
-        token : null,
+        token : "",
+        refreshToken : "",
         isError: false,
-        isLoading: false
+        isLoading: false,
+        isSignUp : false
     }
  }
  default : return state
