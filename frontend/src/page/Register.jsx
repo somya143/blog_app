@@ -15,6 +15,7 @@ import {
     Flex,
     Center
   } from '@chakra-ui/react';
+  import "./register.css"
 
  import { useSelector, useDispatch } from "react-redux" 
 import { getRegister } from '../redux/auth/auth.action';
@@ -63,11 +64,15 @@ const handleChange = (e) => {
 
 
   return (
-    <Box backgroundImage={"https://images.unsplash.com/photo-1688462035292-61c6407a639c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTJ8fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=500&q=60"} backgroundRepeat={"no-repeat"} backgroundSize={"100%"} bgPosition={"center"} width={"100%"} height={"100vh"} >
+    <Box  backgroundImage={"https://images.unsplash.com/photo-1688462035292-61c6407a639c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTJ8fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=500&q=60"} bgSize="cover"
+    bgPosition="center"
+    bgRepeat="no-repeat"
+    width="100%"
+    height={{ base: "100vh", sm: "100vh", md: "100vh", lg: "100vh" }}  >
     <Flex>
       <Sidebar />
-      <Center  h="100vh" w="100%" />
-    <Box margin={"auto"} w={{ base: "100%", md: "50%", lg: "55%" }} h={{  base: "100vh", md: "100vh", lg: "100vh" }}  >
+    
+    <Box margin={"auto"} w={{ base: "100%", md: "50%", lg: "55%" }} className='registerBox'  >
         <Heading color={"orange"} fontSize={"3.2rem"} fontWeight={700} fontFamily={"sans-serif"} pb={"30px"} textDecoration={"underline"}>
             Sign Up
         </Heading>
@@ -86,7 +91,7 @@ const handleChange = (e) => {
    <FormLabel m={"10px"} color={"green.300"}>Age :</FormLabel>
    <Input type='Number' color={"white"} onChange={handleChange} name='age' />
 
-   <Select placeholder='Select Gender :' mt={"30px"}  fontWeight={"bold"} onChange={handleChange} name='gender'>
+   <Select placeholder='Select Gender :' mt={"30px"} color={"green.300"}  fontWeight={"bold"} onChange={handleChange} name='gender'>
   <option value='Male'>Male</option>
   <option value='Female'>Female</option>
   <option value='Other'>Other</option>
