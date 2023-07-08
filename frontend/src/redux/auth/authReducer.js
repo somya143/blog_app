@@ -45,17 +45,30 @@ switch(type){
     }
  }
  case auth_login_success : {
-    localStorage.setItem("token",payload.token)
-    localStorage.setItem("refreshToken",payload.token)
-    return {
+   if(!payload.error){
+       localStorage.setItem("token", payload?.token)
+       localStorage.setItem("refreshToken",payload?.token)
+       
+       return {
+           ...state,
+           isAuth: true,
+           isError: false,
+           isLoading: false,
+           isSignUp : false,
+           token : payload.token,
+           refreshToken : payload.refreshToken
+       }
+       }
+       return {
         ...state,
-        isAuth: true,
+        isAuth: false,
         isError: false,
         isLoading: false,
         isSignUp : false,
         token : payload.token,
         refreshToken : payload.refreshToken
     }
+    //console.log(payload)
  }
  case auth_login_failure : {
     return {

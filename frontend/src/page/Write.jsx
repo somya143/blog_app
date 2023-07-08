@@ -48,25 +48,24 @@ const Write = () => {
         </Heading>
     
     <form action="" onSubmit={handleSubmit}>
- <FormControl>
+     <FormControl>
     
- <FormLabel  mt={"30px"} m={"10px"} color={"green.300"}>Title :</FormLabel>
-   <Input type='text' value={title} onChange={(e) => setTitle(e.target.value)} color={"#fff"} name='title' />
+         <FormLabel  mt={"30px"} m={"10px"} color={"green.300"}>Title :</FormLabel>
+         <Input type='text' value={title} onChange={(e) => setTitle(e.target.value)} color={"#fff"} name='title' />
 
-   <FormLabel m={"10px"} color={"green.300"}>Content :</FormLabel>
-   <Textarea type='text' value={content} onChange={(e) => setContent(e.target.value)}  color={"#fff"} name='content' />
+          <FormLabel m={"10px"} color={"green.300"}>Content :</FormLabel>
+         <Textarea type='text' value={content} onChange={(e) => setContent(e.target.value)}  color={"#fff"} name='content' />
 
-  <FormLabel m={"10px"} color={"green.300"}>Image :</FormLabel>
-   <Input type='url' value={image} onChange={(e) => setImage(e.target.value)} color={"#fff"}  name='image' />
+          <FormLabel m={"10px"} color={"green.300"}>Image :</FormLabel>
+         <Input type='url' value={image} onChange={(e) => setImage(e.target.value)} color={"#fff"}  name='image' />
 
-   
-</FormControl>
+      </FormControl>
 
-<Button type='submit' mt={"30px"} w={"100%"} h={"3rem"} fontSize={"27px"} fontWeight={700} backgroundColor={"green.300"} color={"#fff"}>Post Blog</Button>
-</form>
-</Box>
-</Center>
-</Flex>
+     <Button type='submit' mt={"30px"} w={"100%"} h={"3rem"} fontSize={"27px"} fontWeight={700} backgroundColor={"green.300"} color={"#fff"}>Post Blog</Button>
+     </form>
+     </Box>
+     </Center>
+     </Flex>
     </Box>
   )
 }

@@ -16,11 +16,17 @@ const Sidebar = () => {
   const navigate = useNavigate();
   const name = token? jwtDecode(token).name : null;
   const email = token? jwtDecode(token).email : null;
-  console.log(name)
-  console.log(email)
+  console.log(name,email)
   const handleClick = () => {
       token? dispatch(getSignout()) : navigate("/login")
   }
+  const nullToken = localStorage.getItem("token");
+  const nullRToken = localStorage.getItem("refreshToken");
+  console.log(nullToken,nullRToken)
+  // if(nullToken=== undefined || nullRToken=== undefined){
+  //   localStorage.removeA("token");
+  //   localStorage.removeItem("refreshToken")
+  // }
   return (
     <Box 
     float={"left"} 
@@ -87,7 +93,7 @@ const Sidebar = () => {
       <Box  w={"100%"} color={"#fff"} fontSize={"25px"} mt={"2rem"}>
        
         <Button backgroundColor={"green"} color={"#fff"} fontSize={"25px"} width={"100%"} onClick={handleClick}  >
-          {token? "Logout" : "Login"}
+          {token && token? "Logout" : "Login"}
         </Button>
       </Box>
 

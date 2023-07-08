@@ -3,7 +3,7 @@ import { delete_blog_failure, delete_blog_loading, delete_blog_success, get_blog
 const initialBlogState = {
     blogs : [],
     isLoading : false,
-    isError : false
+    isError : false,
 }
 
  const blogReducer = (state= initialBlogState , {type,payload}) => {
@@ -18,9 +18,9 @@ const initialBlogState = {
         case get_blog_success : {
             return {
                 ...state,
-                blogs : [...payload] ,
+                blogs : [...payload],
                 isLoading : false,
-                isError : false
+                isError : false,
             }
         }
         case get_blog_failure : {
@@ -42,7 +42,7 @@ const initialBlogState = {
                 ...state,
                 isError : false,
                 isLoading : false,
-                blogs : payload
+                blogs : [payload , ...state.blogs]
             }
         }
         case post_blog_failure : {
