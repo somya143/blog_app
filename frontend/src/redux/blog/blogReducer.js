@@ -1,12 +1,12 @@
 import { delete_blog_failure, delete_blog_loading, delete_blog_success, get_blog_failure, get_blog_loading, get_blog_success, post_blog_failure, post_blog_loading, post_blog_success, update_blog_failure, update_blog_loadng, update_blog_success } from "./blog.actionType"
 
 const initialBlogState = {
-    blogs : [],
+    data : [],
     isLoading : false,
     isError : false,
 }
 
- const blogReducer = (state= initialBlogState , {type,payload}) => {
+ export  const blogReducer = (state= initialBlogState , {type,payload}) => {
     switch(type){
         case get_blog_loading : {
             return {
@@ -18,7 +18,7 @@ const initialBlogState = {
         case get_blog_success : {
             return {
                 ...state,
-                blogs : [...payload],
+                data : payload.data,
                 isLoading : false,
                 isError : false,
             }
@@ -42,7 +42,7 @@ const initialBlogState = {
                 ...state,
                 isError : false,
                 isLoading : false,
-                blogs : [payload , ...state.blogs]
+                data : [payload , ...state.data]
             }
         }
         case post_blog_failure : {
@@ -64,7 +64,7 @@ const initialBlogState = {
                 ...state,
                 isError : false,
                 isLoading : false,
-                blogs : state.blogs.filter(el => el._id!==payload )
+                data : state.data.filter(el => el._id!==payload )
             }
         }
         case delete_blog_failure : {
@@ -85,7 +85,7 @@ const initialBlogState = {
             return {
                 isError : false,
                 isLoading : false,
-                blogs : state.blogs.map(el => el._id===payload._id? payload:el)
+                data : state.data.map(el => el._id===payload._id? payload:el)
             }
         }
         case update_blog_failure : {
@@ -97,5 +97,3 @@ const initialBlogState = {
         default : return state
     }
 }
-
-export default blogReducer;

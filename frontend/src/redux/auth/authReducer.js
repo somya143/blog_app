@@ -68,7 +68,6 @@ switch(type){
         token : payload.token,
         refreshToken : payload.refreshToken
     }
-    //console.log(payload)
  }
  case auth_login_failure : {
     return {

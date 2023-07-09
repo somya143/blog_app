@@ -6,7 +6,8 @@ import {
     Box,
     Heading,
     Button,
-    useToast
+    useToast,
+    Flex
   } from '@chakra-ui/react';
 
 import { useDispatch,useSelector } from "react-redux";
@@ -15,15 +16,14 @@ import Loading from '../components/Loading';
 import Error from "../components/Error";
 import { useNavigate } from "react-router-dom";
 import jwtDecode from "jwt-decode";
+import Sidebar from '../components/Sidebar';
 
 const Login = () => {
     const [login , setLogin] = useState({});
-    const { isAuth,isError,isLoading,token } = useSelector((store) => store.auth)
+    const { isAuth,isError,isLoading } = useSelector((store) => store.auth)
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const toast = useToast();
-    const email = token ? jwtDecode(token).email : null;
-    const password = token ? jwtDecode(token).password : null;
       const handleChange = (e) => {
           const {name, value} = e.target;
           setLogin({...login , 
@@ -58,6 +58,8 @@ const Login = () => {
     width="100%"
     height={{ base: "100vh", sm: "100vh", md: "100vh", lg: "100vh" }}>
      
+     <Flex>
+      <Sidebar />
      <Box margin="auto" w="50%" borderRadius={"10px"}  >
         <Heading color={"orange"} pt={"30px"} fontSize={"3.2rem"} fontWeight={700} fontFamily={"sans-serif"} pb={"30px"} textDecoration={"underline"}>
             Login 
@@ -76,6 +78,7 @@ const Login = () => {
 <Button type='submit' mt={"30px"} w={"100%"} h={"3rem"} fontSize={"27px"} variant={"ghost"} backgroundColor={"orange"} color={"#fff"}>Login</Button>
 </form>    
 </Box>
+</Flex>
     </Box>
   )
 }

@@ -1,17 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import Sidebar from '../components/Sidebar'
-import { Box, Center, Flex, Heading, Text } from '@chakra-ui/react'
+import { Box, Flex, Heading, Text } from '@chakra-ui/react'
 import { useSelector, useDispatch } from 'react-redux';
 import { getBlogs } from '../redux/blog/blog.action';
-import { useNavigate, useParams } from "react-router-dom"
 
 const Blog = () => {
-  const {isError , isLoading , blogs} = useSelector((store) => store.blog);
-  const { token } = useSelector((store) => store.auth);
-  const navigate = useNavigate();
+  const {isError , isLoading , data} = useSelector((store) => store.blog);
   const dispatch = useDispatch();
-   console.log(Array.isArray(blogs))
-   console.log(blogs.length)
+  console.log(data)
   useEffect(() => {
     dispatch(getBlogs())
   }, [dispatch])
@@ -25,16 +21,19 @@ const Blog = () => {
             You Can Read Blogs Here
           </Heading>
           <Box>
-            {
-              blogs?.map((bl,i) => {
-                return(
-                  <Box key={i}>
-                    
-                    bl = {bl}
-                  </Box>
-                )
-              })
-            }
+          {isLoading ? (
+            <Text>Loading...</Text>
+          ) : isError ? (
+            <Text>Error occurred while fetching data.</Text>
+          ) : (
+            data?.map((bl, i) => (
+              <Box key={i}>
+                title = {bl.title}
+                content = {bl.content}
+                image = {bl.image}
+              </Box>
+            ))
+          )}
           </Box>
          </Box>
         </Flex>

@@ -7,8 +7,15 @@ export const getBlogs = () => async(dispatch) => {
     dispatch({ type: get_blog_loading });
     try {
         const response =  await axios.get(`http://localhost:8080/blogs`);
-        dispatch({ type: get_blog_success, payload: response.data });
-        console.log(response.data)
+        if(response.data.error === false){
+            dispatch({ type: get_blog_success, payload: response.data });
+            //console.log(response.data)
+        }else{
+            dispatch({ type: get_blog_failure , payload: response.data.error })
+        }
+        console.log(response.data.blog)
+        return response.data;
+        
         } catch (error) {
         dispatch({ type: get_blog_failure , payload: error.message });
         console.log(error.message)
@@ -29,7 +36,6 @@ export const createBlog = ({title,content,image,token}) => async(dispatch) => {
             }
           );
         dispatch({ type: post_blog_success , payload: data});
-        console.log(Array.isArray(data))
         
     } catch (error) {
         dispatch({ type: post_blog_failure , payload: error.message });

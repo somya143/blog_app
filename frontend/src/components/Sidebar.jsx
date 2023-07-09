@@ -6,6 +6,9 @@ import { FcBullish } from "react-icons/fc";
 import { FcEditImage } from "react-icons/fc";
 import { RxAvatar } from "react-icons/rx";
 import { TfiEmail } from "react-icons/tfi"
+import { FcNews } from "react-icons/fc";
+import { FcRegisteredTrademark } from "react-icons/fc";
+import { FcRight } from "react-icons/fc"
 import { useSelector,useDispatch } from "react-redux";
 import jwtDecode from "jwt-decode"
 import { getSignout } from '../redux/auth/auth.action';
@@ -16,17 +19,10 @@ const Sidebar = () => {
   const navigate = useNavigate();
   const name = token? jwtDecode(token).name : null;
   const email = token? jwtDecode(token).email : null;
-  console.log(name,email)
   const handleClick = () => {
       token? dispatch(getSignout()) : navigate("/login")
   }
-  const nullToken = localStorage.getItem("token");
-  const nullRToken = localStorage.getItem("refreshToken");
-  console.log(nullToken,nullRToken)
-  // if(nullToken=== undefined || nullRToken=== undefined){
-  //   localStorage.removeA("token");
-  //   localStorage.removeItem("refreshToken")
-  // }
+  
   return (
     <Box 
     float={"left"} 
@@ -40,27 +36,27 @@ const Sidebar = () => {
     top="0"
     left="0"
     >
-      <Box border={"3px solid green"}  w={"100%"} h={"200px"} color={"orange"} fontSize={"20px"} fontFamily={"sans-serif"}>
+      {name && email && <Box border={"3px solid green"}  w={"100%"} h={"170px"} color={"orange"} fontSize={"20px"} fontFamily={"sans-serif"}>
       <Text mt={"1rem"} fontWeight={"bold"} fontSize={"25px"} textDecoration={"underline"}>User Details</Text>
       {
           name && (
             <Flex mt={"1rem"}>
-              <RxAvatar size={30} m={4} ></RxAvatar>
+              <RxAvatar size={30} m={2} ></RxAvatar>
               <Text ml={4}>{name}</Text>
             </Flex>
           )
         }
         {
           email && (
-            <Flex mt={"1rem"} mb={"2rem"}>
-            <TfiEmail size={30} m={4} ></TfiEmail>
+            <Flex mt={"1rem"}>
+            <TfiEmail size={30} m={2} ></TfiEmail>
             <Text ml={4} fontSize={"20px"}>{email}</Text>
           </Flex>
           )
         }
-      </Box>
+      </Box>}
 
-    <Box border={"2px solid"} p={4} color={"green.400"} mt={"3rem"}>
+    <Box border={"2px solid"} p={4} color={"green.400"}>
         <Box p={6} position={"relative"} border={"1px solid"} color={"green.400"}>
             <Text fontSize={"25px"} fontWeight={500} color={"orange"} textDecoration={"underline"}>
               Daily Blogs
@@ -86,11 +82,32 @@ const Sidebar = () => {
                      Write
                   </Link>
               </ListItem>
+
+              <ListItem my={9} alignItems={"center"}>
+                  <Link as={ReachLink} to="/blogs" color={"orange"} >
+                    <ListIcon as={FcNews}  mr={4} />
+                     Blogs
+                  </Link>
+              </ListItem>
+
+              <ListItem my={9} alignItems={"center"}>
+                  <Link as={ReachLink} to="/register" color={"orange"} >
+                    <ListIcon as={FcRegisteredTrademark}  mr={4} />
+                     Register
+                  </Link>
+              </ListItem>
+
+              <ListItem my={9} alignItems={"center"}>
+                  <Link as={ReachLink} to="/login" color={"orange"} >
+                    <ListIcon as={FcRight}  mr={4} />
+                     Login
+                  </Link>
+              </ListItem>
             </List>
             </Box>
       </Box>
 
-      <Box  w={"100%"} color={"#fff"} fontSize={"25px"} mt={"2rem"}>
+      <Box  w={"100%"} color={"#fff"} fontSize={"25px"} mb={"0.5rem"}>
        
         <Button backgroundColor={"green"} color={"#fff"} fontSize={"25px"} width={"100%"} onClick={handleClick}  >
           {token && token? "Logout" : "Login"}
