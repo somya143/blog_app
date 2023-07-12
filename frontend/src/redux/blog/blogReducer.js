@@ -1,35 +1,14 @@
 import { delete_blog_failure, delete_blog_loading, delete_blog_success, get_blog_failure, get_blog_loading, get_blog_success, post_blog_failure, post_blog_loading, post_blog_success, update_blog_failure, update_blog_loadng, update_blog_success } from "./blog.actionType"
 
-const initialBlogState = {
+let initialBlogState = {
     data : [],
     isLoading : false,
     isError : false,
 }
 
- export  const blogReducer = (state= initialBlogState , {type,payload}) => {
+ const blogReducer = (state= initialBlogState , {type,payload}) => {
+    //console.log(type,payload,state.data)
     switch(type){
-        case get_blog_loading : {
-            return {
-                ...state,
-                isLoading : true,
-                isError : false
-            }
-        }
-        case get_blog_success : {
-            return {
-                ...state,
-                data : payload.data,
-                isLoading : false,
-                isError : false,
-            }
-        }
-        case get_blog_failure : {
-            return {
-                ...state,
-                isError: true,
-                isLoading : false
-            }
-        }
         case post_blog_loading : {
             return {
                 ...state,
@@ -50,6 +29,32 @@ const initialBlogState = {
                 ...state,
                 isError : true,
                 isLoading : false
+            }
+        }
+        case get_blog_loading : {
+            console.log(state.data)
+            return {
+                ...state,
+                isLoading : true,
+                isError : false
+            }
+        }
+        case get_blog_success : {
+            console.log("blog success")
+            return {
+                ...state,
+                data : [...payload.blog],
+                isLoading : false,
+                isError : false
+            }
+        }
+        
+        case get_blog_failure : {
+            console.log(state.isError)
+            return {
+                ...state,
+                isLoading : false,
+                isError : true
             }
         }
         case delete_blog_loading : {
@@ -97,3 +102,5 @@ const initialBlogState = {
         default : return state
     }
 }
+
+export default blogReducer;

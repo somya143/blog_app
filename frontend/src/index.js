@@ -14,10 +14,8 @@ root.render(
     <BrowserRouter>
     <Provider store={store}>
       <ChakraProvider>
-        
-    <App />
-    
-    </ChakraProvider>
+        <App />
+      </ChakraProvider>
     </Provider>
     </BrowserRouter>
   </React.StrictMode>

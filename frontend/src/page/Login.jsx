@@ -15,7 +15,6 @@ import { getLogin } from '../redux/auth/auth.action';
 import Loading from '../components/Loading';
 import Error from "../components/Error";
 import { useNavigate } from "react-router-dom";
-import jwtDecode from "jwt-decode";
 import Sidebar from '../components/Sidebar';
 
 const Login = () => {
