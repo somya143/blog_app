@@ -13,6 +13,7 @@ app.get("/" , async(req,res) => {
             return res.status(400).send("blog not found")
         }else{
             console.log(blog)
+            console.log(Array.isArray(blog))
             return res.status(200).send({message:"blog found successfully", blog})
         }
     } catch (error) {

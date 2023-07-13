@@ -41,6 +41,7 @@ app.post("/login" , async(req,res) => {
   try {
     const user = await Auth.findOne({ email });
     const match = await argon2.verify(user.password, password);
+    console.log(match)
     if (match) {
       const token = jwt.sign(
         { id: user._id, email, password: user.password, name: user.name },
@@ -61,7 +62,8 @@ app.post("/login" , async(req,res) => {
         token,
         refreshToken,
       });
-    } else {
+    }
+     else {
       return res.send({ error: true, message: "Wrong Password!!" });
     }
   } catch (e) {
