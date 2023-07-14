@@ -13,9 +13,9 @@ const BlogCard = ({blog,user}) => {
     width="100%">
      <Flex>
         <VStack align="start">
-          <Text fontSize="20px" fontWeight="400" color="whiteAlpha.800">
+          {/* <Text fontSize="20px" fontWeight="400" color="whiteAlpha.800">
              {blog.author["name"]}
-          </Text>
+          </Text> */}
           <Text>
             {moment(new Date(blog.createdAt.toLocaleString())).format(
                 ` MMMM Do YYYY, h:mm:ss a`
