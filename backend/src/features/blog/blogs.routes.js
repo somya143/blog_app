@@ -6,15 +6,13 @@ const app = express.Router();
 app.get("/" , async(req,res) => {
     const { limit=2,page=1 } = req.query
     try {
-        const blog = await Blog.find().limit(limit).skip((page-1) * limit).sort({_id:-1}).populate({path: "author" , select:["name","_id","email","age"]})
+        const blog = await Blog.find().sort({_id:-1}).populate({path: "author" , select:["name","_id","email","age"]})
         .populate({path: "comment.commentAuthor" , select:["name","_id","email","age"]})
         .populate({path: "likes" , select: ["name","_id","email","age"]});
         
         if(!blog){
             return res.status(400).send("blog not found")
         }else{
-            console.log(blog)
-            console.log(Array.isArray(blog))
             return res.status(200).send({message:"blog found successfully", blog})
         }
     } catch (error) {
@@ -39,26 +37,22 @@ app.post("/" , authMiddleware ,async(req,res) => {
  const {title,content,image} = req.body;
  try {
     const post = await (await Blog.create({author:req.id,title,content,image})).populate({path:"author" , select:["name","_id","email","age"]})
-    console.log(post)
     return res.send({message:"blog created succesfully" , post})
  } catch (error) {
     return res.send(error.message)
  }
 });
 
-app.delete("/:id" , authMiddleware , async(req,res) => {
-    let { id } = req.params;
+app.delete("/:id", authMiddleware  , async(req,res) => {
     try {
-        const blog = await Blog.findById(id);
+        const blog = await Blog.findById(req.params.id);
         if(!req.id.equals(blog.author)){
-            return res.send("You are not authorized to delete this blog")
-        }else{
-         const deleteBlog = await Blog.findByIdAndDelete(id);
-         return res.send({message:"blog deleted successfully" , deleteBlog})
+            return res.status(401).send({error:true,message:"You are not authorized to delete this blog"})
         }
-        
-    } catch (error) {
-        return res.send(error.message)
+         const deleteBlog = await Blog.findByIdAndDelete(req.params.id);
+         return res.send({message:"blog deleted successfully" , deleteBlog})
+        } catch (error) {
+        return res.send({error:true,message:error.message})
     }
 })
 
