@@ -32,7 +32,7 @@ let initialBlogState = {
             }
         }
         case get_blog_loading : {
-            console.log(state.data)
+            //console.log(state.data)
             return {
                 ...state,
                 isLoading : true,
@@ -40,7 +40,7 @@ let initialBlogState = {
             }
         }
         case get_blog_success : {
-            console.log("blog success")
+            //console.log("blog success")
             return {
                 ...state,
                 data : [...payload.blog],
@@ -48,9 +48,7 @@ let initialBlogState = {
                 isError : false
             }
         }
-        
         case get_blog_failure : {
-            console.log(state.isError)
             return {
                 ...state,
                 isLoading : false,
@@ -65,11 +63,12 @@ let initialBlogState = {
             }
         }
         case delete_blog_success : {
+            const deleteData = state.data.filter(el => el._id !== payload )
             return {
                 ...state,
                 isError : false,
                 isLoading : false,
-                data : state.data.filter(el => el._id!==payload )
+                data : deleteData
             }
         }
         case delete_blog_failure : {
