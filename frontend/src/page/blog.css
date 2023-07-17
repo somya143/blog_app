@@ -1,3 +1,6 @@
+body{
+    overflow-y: auto;
+}
 .blogBox{
     height: 100vh;
 }

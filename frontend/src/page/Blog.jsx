@@ -7,21 +7,31 @@ import BlogCard from '../components/BlogCard';
 import jwtDecode from 'jwt-decode';
 import "./blog.css";
 import DeleteBlog from '../components/DeleteBlog';
+import Pagination from '../components/Pagination';
 const Blog = () => {
+  const [page , setPage] = useState(1);
   const { isError , isLoading, data } = useSelector((store) => store.blog)
   const dispatch = useDispatch();
   const { token } = useSelector((store) => store.auth);
   const user = token?jwtDecode(token): null;
-  //console.log(data)
+  let limit = 2;
+  console.log(data)
+  let total;
+  const totalData = () => {
+     total = Math.floor((data.length)*page)
+  }
+  totalData();
+
   useEffect(() => {
-    dispatch(getBlogs())
-  }, [dispatch])
+    dispatch(getBlogs(page))
+    }, [dispatch,page])
+  console.log(total)
   return (
     <Box>
         <Flex>
         <Sidebar />
         <Center></Center>
-         <Box bg={"gray.400"} width={"100%"}>
+         <Box bg={"gray.400"} width={"100%"} overflowY={"auto"}>
           <Heading textAlign={"center"}>
             You Can Read Blogs Here
           </Heading>
@@ -32,19 +42,14 @@ const Blog = () => {
             <Text>Error occurred while fetching data.</Text>
           ) : (
             data?.map((blog) => (
-              // <Box key={i} className='blogCard'>
-              //   <Image src={bl.image} />
-              //   <Heading>{bl.title}</Heading>
-              //   <Text>{bl.content}</Text>
-              //   <Text>{bl.author["name"]}</Text>
-              //   <span><DeleteBlog />  </span>
-              //   </Box>
               <BlogCard key={blog._id} blog={blog} user={user} />
             ))
           )}
           </Box>
+          
          </Box>
         </Flex>
+         <Pagination handlePageClick={(val) => setPage(val)} current={page} total={total} />
     </Box>
   )
 }

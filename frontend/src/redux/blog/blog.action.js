@@ -3,13 +3,12 @@ import { delete_blog_failure, delete_blog_loading, delete_blog_success, get_blog
 import { axios_instance } from "../../utils/axios_instance";
 
 
-export const getBlogs = () => async(dispatch) => {
+export const getBlogs = (page=1,limit=2) => async(dispatch) => {
     dispatch({ type: get_blog_loading });
     try {
-        const response =  await axios.get(`http://localhost:8080/blogs`);
-        
+        const response =  await axios.get(`http://localhost:8080/blogs?page=${page}&limit=${limit}`);
         dispatch({ type: get_blog_success, payload: response.data });
-        console.log(response.data.blog[0].author.name)
+         console.log(response.data.blog)
         return response.data.blog;
         } catch (error) {
         dispatch({ type: get_blog_failure , payload: error.message });

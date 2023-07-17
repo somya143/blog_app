@@ -14,9 +14,9 @@ const BlogCard = ({blog,user}) => {
      <Flex>
         <VStack align="start">
           {/* <Text fontSize="20px" fontWeight="400" color="whiteAlpha.800">
-             {blog.author["name"]}
+             {data && data.author.name}
           </Text> */}
-          <Text>
+          <Text color={"#fff"}>
             {moment(new Date(blog.createdAt.toLocaleString())).format(
                 ` MMMM Do YYYY, h:mm:ss a`
             )}
@@ -26,7 +26,7 @@ const BlogCard = ({blog,user}) => {
      </Flex>
       <Link
        as={ReachLink}
-       to={`/viewblog/${blog._id}`}
+       to={`/SingleBlogView/${blog._id}`}
        >
       <Image 
       src={blog.image}
@@ -36,10 +36,10 @@ const BlogCard = ({blog,user}) => {
       mt="20px"
       alt="blog-banner"
       />
-      <Text>
+      <Text color={"#fff"}>
         {blog.title}
       </Text>
-      <Text>
+      <Text color={"#fff"}>
         {blog.content}
       </Text>
       </Link>

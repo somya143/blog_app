@@ -27,11 +27,11 @@ const Sidebar = () => {
     <Box 
     float={"left"} 
     minW={{'lg':"20vw" , 'md':"30vw"}} 
-    h="100vh"
+    h="109vh"
     position={"relative"}
     border={"1px solid black"}
     bg={"gray.700"}
-    overflowY={"scroll"}
+    overflowY={"auto"}
     display={["none","none","block","block"]}
     top="0"
     left="0"
@@ -97,7 +97,7 @@ const Sidebar = () => {
                   </Link>
               </ListItem>
 
-              <ListItem my={9} alignItems={"center"}>
+              <ListItem my={7} alignItems={"center"}>
                   <Link as={ReachLink} to="/login" color={"orange"} >
                     <ListIcon as={FcRight}  mr={4} />
                      Login
