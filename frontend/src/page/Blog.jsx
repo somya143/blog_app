@@ -6,7 +6,6 @@ import { getBlogs } from '../redux/blog/blog.action';
 import BlogCard from '../components/BlogCard';
 import jwtDecode from 'jwt-decode';
 import "./blog.css";
-import DeleteBlog from '../components/DeleteBlog';
 import Pagination from '../components/Pagination';
 const Blog = () => {
   const [page , setPage] = useState(1);
@@ -33,7 +32,7 @@ const Blog = () => {
         <Center></Center>
          <Box bg={"gray.400"} width={"100%"} overflowY={"auto"}>
           <Heading textAlign={"center"}>
-            You Can Read Blogs Here
+             Read Blogs Here
           </Heading>
           <Box className='blogBox'>
           {isLoading ? (

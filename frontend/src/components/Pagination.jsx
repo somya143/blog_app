@@ -31,7 +31,7 @@ return (
 
     <Box>
       <Text>
-        Total Data So Far : {total}
+        Total Blogs So Far : {total}
       </Text>
     </Box>
     </HStack>

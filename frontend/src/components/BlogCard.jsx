@@ -2,6 +2,7 @@ import { Box, Flex, VStack, Text, Spacer, Image, Link } from '@chakra-ui/react'
 import React from 'react';
 import moment from "moment"
 import { Link as ReachLink } from "react-router-dom";
+import DeleteBlog from './DeleteBlog';
 const BlogCard = ({blog,user}) => {
   return (
     <Box bg="blackAlpha.900"
@@ -43,6 +44,7 @@ const BlogCard = ({blog,user}) => {
         {blog.content}
       </Text>
       </Link>
+      <DeleteBlog />
     </Box>
   )
 }
