@@ -48,9 +48,10 @@ app.delete("/:id", authMiddleware  , async(req,res) => {
         const blog = await Blog.findById(req.params.id);
         if(!req.id.equals(blog.author)){
             return res.status(401).send({error:true,message:"You are not authorized to delete this blog"})
+        }else{
+            const deleteBlog = await Blog.findByIdAndDelete(req.params.id);
+            return res.send({error:false,message:"blog deleted successfully" , deleteBlog})
         }
-         const deleteBlog = await Blog.findByIdAndDelete(req.params.id);
-         return res.send({message:"blog deleted successfully" , deleteBlog})
         } catch (error) {
         return res.send({error:true,message:error.message})
     }
