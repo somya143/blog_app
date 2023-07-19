@@ -8,8 +8,8 @@ export const getBlogs = (page=1,limit=2) => async(dispatch) => {
     try {
         const response =  await axios.get(`http://localhost:8080/blogs?page=${page}&limit=${limit}`);
         dispatch({ type: get_blog_success, payload: response.data });
-         console.log(response.data.blog)
-        return response.data.blog;
+         //console.log(response.data.blog)
+        return response.data;
         } catch (error) {
         dispatch({ type: get_blog_failure , payload: error.message });
         //console.log(error.message)
@@ -51,14 +51,16 @@ export const getSingleBlog = (id) => async(dispatch) => {
 export const deleteBlog = (payload) => async(dispatch) => {
     dispatch({ type: delete_blog_loading });
     try {
-        const response = await axios.delete(`http://localhost:8080/blogs/${payload.id}`, {headers: {"authorization": payload.token}});
+        const response = await axios.delete(`http://localhost:8080/blogs/${payload.id}`, {headers: {authorization: payload.token}});
         if(!response.data.error){
-            dispatch({type: delete_blog_success , payload: response.data });
-            //return response.data
+            dispatch({ type: delete_blog_success , payload : payload.id})
+            //console.log(response.data)
         }else{
-            dispatch({ type: delete_blog_failure , payload : response.data.error })
+            dispatch({ type: delete_blog_failure , payload : payload.id })
+            //console.log(payload)
         }
-        console.log(response.data);
+        //console.log(response.data);
+        //return payload.id;
     } catch (error) {
         dispatch({ type: delete_blog_failure , payload: error.message})
     }

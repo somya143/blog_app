@@ -63,7 +63,8 @@ let initialBlogState = {
             }
         }
         case delete_blog_success : {
-            const deleteData = state.data.filter(el => el._id !== payload )
+            const deleteData = state.data.filter((el) => el._id !== payload )
+            console.log(deleteData)
             return {
                 ...state,
                 isError : false,

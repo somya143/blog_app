@@ -3,7 +3,9 @@ import React from 'react';
 import moment from "moment"
 import { Link as ReachLink } from "react-router-dom";
 import DeleteBlog from './DeleteBlog';
-const BlogCard = ({blog,user}) => {
+const BlogCard = ({blog,user,token,authorId}) => {
+  const { author } = blog
+  //console.log(authorId)
   return (
     <Box bg="blackAlpha.900"
     borderRadius="10px"
@@ -14,9 +16,12 @@ const BlogCard = ({blog,user}) => {
     width="100%">
      <Flex>
         <VStack align="start">
-          {/* <Text fontSize="20px" fontWeight="400" color="whiteAlpha.800">
-             {data && data.author.name}
-          </Text> */}
+         {author && author!==null?   (<Text fontSize="20px" fontWeight="400" color="whiteAlpha.800">
+             Author's Name : {author.name}
+          </Text>)
+          :
+          (<Text color={"#fff"}>Author is anonymus</Text>)
+          }
           <Text color={"#fff"}>
             {moment(new Date(blog.createdAt.toLocaleString())).format(
                 ` MMMM Do YYYY, h:mm:ss a`
@@ -44,7 +49,7 @@ const BlogCard = ({blog,user}) => {
         {blog.content}
       </Text>
       </Link>
-      <DeleteBlog />
+      <DeleteBlog id={blog._id} token={token} />
     </Box>
   )
 }

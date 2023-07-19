@@ -9,10 +9,13 @@ import "./blog.css";
 import Pagination from '../components/Pagination';
 const Blog = () => {
   const [page , setPage] = useState(1);
-  const { isError , isLoading, data } = useSelector((store) => store.blog)
+  const { isError , isLoading, data } = useSelector((store) => store?.blog)
+  //const { author, title, content } = data;
   const dispatch = useDispatch();
   const { token } = useSelector((store) => store.auth);
   const user = token?jwtDecode(token): null;
+  // const { author } = data;
+   //console.log(title)
   let limit = 2;
   console.log(data)
   let total;
@@ -24,7 +27,7 @@ const Blog = () => {
   useEffect(() => {
     dispatch(getBlogs(page))
     }, [dispatch,page])
-  console.log(total)
+  //console.log(total)
   return (
     <Box>
         <Flex>
@@ -41,7 +44,7 @@ const Blog = () => {
             <Text>Error occurred while fetching data.</Text>
           ) : (
             data?.map((blog) => (
-              <BlogCard key={blog._id} blog={blog} user={user} />
+              <BlogCard key={blog._id} blog={blog} user={user} token={token} />
             ))
           )}
           </Box>
