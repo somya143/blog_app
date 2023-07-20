@@ -6,11 +6,13 @@ const connect = require("./config/db")
 const PORT = process.env.PORT || 8080;
 const authRoute = require("./features/auth/auth.routes");
 const blogRoute = require("./features/blog/blogs.routes");
+const likeRoute = require("./features/likes/likes.route")
 
 app.use(cors());
 app.use(express.json());
 app.use("/auths" , authRoute);
-app.use("/blogs" , blogRoute)
+app.use("/blogs" , blogRoute);
+app.use("/likes" , likeRoute);
 app.listen(PORT , async() => {
     await connect();
     console.log(`PORT is running on ${PORT}`);

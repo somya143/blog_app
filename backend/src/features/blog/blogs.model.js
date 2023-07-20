@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const commentSchema = new mongoose.Schema({
     commentAuthor : {type:mongoose.Schema.Types.ObjectId,required: true,ref : "auth"},
-    comment : {type:String, required: true}
+    commentString : {type:String, required: true}
 },
 {
     timestamps: true,
