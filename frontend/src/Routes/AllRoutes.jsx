@@ -4,6 +4,7 @@ import Home from "../page/Home";
 import Login from "../page/Login";
 import Blog from "../page/Blog";
 import Write from "../page/Write";
+import SingleBlogView from "../page/SingleBlogView";
 
 const AllRoutes = () => {
   return (
@@ -14,6 +15,7 @@ const AllRoutes = () => {
         <Route path="/login" element={<Login></Login>}></Route>
         <Route path="/blogs" element={<Blog></Blog>}></Route>
         <Route path="/write" element={<Write />}></Route>
+        <Route path="/SingleBlogView/:id" element={<SingleBlogView />}></Route>
      </Routes>
     </div>
   )

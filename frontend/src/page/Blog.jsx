@@ -12,7 +12,7 @@ const Blog = () => {
   const { isError , isLoading, data } = useSelector((store) => store?.blog)
   //const { author, title, content } = data;
   const dispatch = useDispatch();
-  const { token } = useSelector((store) => store.auth);
+  const { token } = useSelector((store) => store?.auth);
   const user = token?jwtDecode(token): null;
   // const { author } = data;
    //console.log(title)
