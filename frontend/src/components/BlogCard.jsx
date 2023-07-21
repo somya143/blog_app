@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import moment from "moment"
 import { Link as ReachLink } from "react-router-dom";
 import DeleteBlog from './DeleteBlog';
+import EditBlog from './EditBlog';
 
 const BlogCard = ({blog,user,token,socket}) => {
   const { author } = blog;
@@ -50,7 +51,7 @@ const BlogCard = ({blog,user,token,socket}) => {
       </Text>
       </Link>
       <DeleteBlog id={blog._id} blog={blog} token={token} user={user} socket={socket} />
-        
+      <EditBlog id={blog._id} blog={blog} token={token} user={user} socket={socket} />  
     </Box>
   )
 }

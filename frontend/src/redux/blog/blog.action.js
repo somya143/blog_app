@@ -66,7 +66,13 @@ export const deleteBlog = (payload) => async(dispatch) => {
 export const updateBlog = (payload) => async(dispatch) => {
     dispatch({ type: update_blog_loadng });
     try {
-        const response = await axios_instance.patch(`http://localhost:8080/blogs/${payload.id}`);
+        const response = await axios_instance.patch(`http://localhost:8080/blogs/${payload.id}`, {
+            title : payload.title,
+            content : payload.content
+        },
+        {
+            headers : { authorization : payload.token}
+        });
         dispatch({ type: update_blog_success , payload: payload.id });
         payload.socket.emit("update-blog" , payload.id)
 
