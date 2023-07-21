@@ -15,7 +15,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { deleteBlog } from '../redux/blog/blog.action';
 
-const DeleteBlog = ({token,id,user,blog}) => {
+const DeleteBlog = ({token,id,user,blog,socket}) => {
     const dispatch = useDispatch();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const toast = useToast();
@@ -31,7 +31,7 @@ const DeleteBlog = ({token,id,user,blog}) => {
       });
     };
     const handleClick = () => {
-       author._id===user.id? (dispatch(deleteBlog({id,token}))) : (showToastMessage())
+       (author._id===user.id && author !== null)? (dispatch(deleteBlog({id,token,socket}))) : (showToastMessage())
        onClose()
         }
   return (

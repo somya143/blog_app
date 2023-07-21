@@ -1,5 +1,5 @@
 import { Box, FormControl, FormLabel, Heading, Input, Button, Flex, Center, Textarea } from '@chakra-ui/react'
-import React, { useState } from 'react'
+import React, { useState,useContext } from 'react'
 import Sidebar from '../components/Sidebar'
 import { useDispatch, useSelector } from 'react-redux';
 import useLoginAlert from '../custom/useLoginAlert';
@@ -7,6 +7,7 @@ import { createBlog } from '../redux/blog/blog.action';
 import Loading from '../components/Loading';
 import Error from '../components/Error';
 import { useNavigate } from "react-router-dom";
+import { SocketContext } from '../context/SocketContext';
 
 const Write = () => {
   const [title , setTitle] = useState("");
@@ -17,6 +18,7 @@ const Write = () => {
   const { loginAlert } = useLoginAlert()
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { socket } = useContext(SocketContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -24,7 +26,7 @@ const Write = () => {
       return loginAlert()
     }
 
-    dispatch(createBlog({title,content,image,token}))
+    dispatch(createBlog({title,content,image,token,socket}))
     setTitle("")
     setContent("")
     setImage("")

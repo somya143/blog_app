@@ -4,7 +4,7 @@ import moment from "moment"
 import { Link as ReachLink } from "react-router-dom";
 import DeleteBlog from './DeleteBlog';
 
-const BlogCard = ({blog,user,token}) => {
+const BlogCard = ({blog,user,token,socket}) => {
   const { author } = blog;
   return (
     <Box bg="blackAlpha.900"
@@ -49,7 +49,7 @@ const BlogCard = ({blog,user,token}) => {
         {blog.content}
       </Text>
       </Link>
-      <DeleteBlog id={blog._id} blog={blog} token={token} user={user} />
+      <DeleteBlog id={blog._id} blog={blog} token={token} user={user} socket={socket} />
         
     </Box>
   )

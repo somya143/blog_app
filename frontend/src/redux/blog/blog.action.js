@@ -17,7 +17,7 @@ export const getBlogs = (page=1,limit=2) => async(dispatch) => {
   };
 
 
-export const createBlog = ({title,content,image,token}) => async(dispatch) => {
+export const createBlog = ({title,content,image,token,socket}) => async(dispatch) => {
     dispatch({ type: post_blog_loading });
     try {
         const { data } = await axios_instance.post(
@@ -30,7 +30,7 @@ export const createBlog = ({title,content,image,token}) => async(dispatch) => {
             }
           );
         dispatch({ type: post_blog_success , payload: data});
-        
+        socket.emit("new-blog" , data)
     } catch (error) {
         dispatch({ type: post_blog_failure , payload: error.message });
         console.log(error.message)
@@ -54,13 +54,10 @@ export const deleteBlog = (payload) => async(dispatch) => {
         const response = await axios.delete(`http://localhost:8080/blogs/${payload.id}`, {headers: {authorization: payload.token}});
         if(!response.data.error){
             dispatch({ type: delete_blog_success , payload : payload.id})
-            //console.log(response.data)
+            payload.socket.emit("delete-blog" , payload.id)
         }else{
             dispatch({ type: delete_blog_failure , payload : payload.id })
-            //console.log(payload)
         }
-        //console.log(response.data);
-        //return payload.id;
     } catch (error) {
         dispatch({ type: delete_blog_failure , payload: error.message})
     }
@@ -70,7 +67,9 @@ export const updateBlog = (payload) => async(dispatch) => {
     dispatch({ type: update_blog_loadng });
     try {
         const response = await axios_instance.patch(`http://localhost:8080/blogs/${payload.id}`);
-        dispatch({ type: update_blog_success , payload: response.data });
+        dispatch({ type: update_blog_success , payload: payload.id });
+        payload.socket.emit("update-blog" , payload.id)
+
         return response.data;
     } catch (error) {
         dispatch({ type: update_blog_failure , payload : error.message });

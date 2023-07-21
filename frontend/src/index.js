@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 import { store } from './redux/store';
 import { ChakraProvider } from "@chakra-ui/react";
 import { BrowserRouter } from "react-router-dom";
+import SocketProvider from './context/SocketContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -14,7 +15,9 @@ root.render(
     <BrowserRouter>
     <Provider store={store}>
       <ChakraProvider>
+        <SocketProvider>
         <App />
+        </SocketProvider>
       </ChakraProvider>
     </Provider>
     </BrowserRouter>
