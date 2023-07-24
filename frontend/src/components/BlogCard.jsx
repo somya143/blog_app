@@ -51,7 +51,7 @@ const BlogCard = ({blog,user,token,socket}) => {
       </Text>
       </Link>
       <DeleteBlog id={blog._id} blog={blog} token={token} user={user} socket={socket} />
-      <EditBlog id={blog._id} blog={blog} token={token} user={user} socket={socket} />  
+      <EditBlog id={blog._id} blog={blog} token={token} socket={socket} />  
     </Box>
   )
 }

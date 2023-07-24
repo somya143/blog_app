@@ -30,7 +30,7 @@ return (
     </Box>
 
     <Box>
-      <Text>
+      <Text color={"orange"} fontSize={"21px"} fontWeight={700}>
         Total Blogs So Far : {total}
       </Text>
     </Box>

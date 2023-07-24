@@ -87,10 +87,11 @@ let initialBlogState = {
             }
         }
         case update_blog_success : {
+            const updated = state.data.map(el => el._id===payload._id? payload:el);
             return {
                 isError : false,
                 isLoading : false,
-                data : state.data.map(el => el._id===payload._id? payload:el)
+                data : updated
             }
         }
         case update_blog_failure : {

@@ -37,6 +37,7 @@ const DeleteBlog = ({token,id,user,blog,socket}) => {
   return (
     <>
       <Button onClick={onOpen} 
+      mt={"30px"}
         fontSize="20px"
         w="100%"
         bg={"red"}

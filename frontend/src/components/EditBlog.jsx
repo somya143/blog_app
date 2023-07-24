@@ -23,7 +23,7 @@ const EditBlog = ({blog,token,socket}) => {
     const dispatch = useDispatch();
 
     const handleChange = (e) => {
-        setPost({...post, [e.target.name] : [e.target.value]})
+        setPost({...post, [e.target.name] : e.target.value})
     }
     const handleClick = () => {
         dispatch(updateBlog({
@@ -32,15 +32,31 @@ const EditBlog = ({blog,token,socket}) => {
             socket,
             title:post.title,
             content :post.content
-        }))
+        }));
+        onClose()
     }
   return (
     <>
-     <Button onClick={onOpen}>Edit</Button>
+     <Button onClick={onOpen} mt={"30px"} width={"100%"} fontSize={"21px"} bg={"orange"}>Edit</Button>
      <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalBody>
+          <ModalBody  
+              maxH="60vh"
+              overflowY="auto"
+              sx={{
+                "&::-webkit-scrollbar": {
+                  width: "4px",
+                },
+                "&::-webkit-scrollbar-track": {
+                  width: "6px",
+                },
+                "&::-webkit-scrollbar-thumb": {
+                  background: "blue",
+                  borderRadius: "24px",
+                },
+              }}
+              >
             <FormControl>
                 <FormLabel>Title</FormLabel>
                 <Input type='text' value={post.title} name='title' onChange={handleChange} />
