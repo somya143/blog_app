@@ -1,5 +1,5 @@
 import axios from "axios";
-import { delete_blog_failure, delete_blog_loading, delete_blog_success, get_blog_failure, get_blog_loading, get_blog_success, post_blog_failure, post_blog_loading, post_blog_success, update_blog_failure, update_blog_loadng, update_blog_success } from "./blog.actionType";
+import { delete_blog_failure, delete_blog_loading, delete_blog_success, get_blog_failure, get_blog_loading, get_blog_success, like_blog_failure, like_blog_loading, like_blog_success, post_blog_failure, post_blog_loading, post_blog_success, unlike_blog_failure, unlike_blog_loading, unlike_blog_success, update_blog_failure, update_blog_loadng, update_blog_success } from "./blog.actionType";
 import { axios_instance } from "../../utils/axios_instance";
 
 
@@ -82,5 +82,49 @@ export const updateBlog = (payload) => async(dispatch) => {
         console.log(response.data)
     } catch (error) {
         dispatch({ type: update_blog_failure , payload : error.message });
+    }
+}
+
+export const likeBlog = (payload) => async (dispatch) => {
+    dispatch({ type : like_blog_loading });
+    try {
+        const response = await axios_instance.patch(`http://localhost:8080/likes/likeBlog` , {
+            blogId: payload.blogId,
+            likesCount : payload.likesCount
+        },
+        {
+            headers : {authorization : payload.token}
+        })
+        if(!response.data.error){
+            dispatch({ type: like_blog_success , payload : response.data.data })
+            payload.socket.emit("add-like" , response.data.data )
+        }else{
+            dispatch({ type: like_blog_failure })
+        }
+        console.log(response.data.data);
+    } catch (error) {
+        dispatch({ type: like_blog_failure , payload : error.message })
+    }
+}
+
+export const removeBlogLike = (payload) => async(dispatch) => {
+    dispatch({ type: unlike_blog_loading });
+    try {
+        const response = await axios_instance.patch(`http://localhost:8080/likes/unlikeBlog` , {
+            blogId:payload.blogId,
+            likesCount:payload.likesCount
+        },
+        {
+            headers : {authorization : payload.token}
+        })
+        if(!response.data.error){
+            dispatch({ type: unlike_blog_success , payload : response.data.data })
+            payload.socket.emit("remove-like" , response.data.data )
+        }else{
+            dispatch({ type: unlike_blog_failure })
+        }
+        console.log(response.data.data);
+    } catch (error) {
+        dispatch({ type:unlike_blog_failure , payload:error.message })
     }
 }
