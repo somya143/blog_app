@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
     Modal,
     ModalOverlay,
@@ -14,44 +14,51 @@ import {
     Text,
     Spacer
   } from '@chakra-ui/react';
-  import { AiFillLike , AiFillDislike , AiOutlineLike} from "react-icons/ai";
+  import { AiFillLike , AiFillDislike , AiOutlineLike } from "react-icons/ai";
 import SingleLike from './SingleLike';
 import { useDispatch } from 'react-redux';
-import { likeBlog } from '../redux/blog/blog.action';
+import { likeBlog, removeBlogLike } from '../redux/blog/blog.action';
 import useLoginAlert from '../custom/useLoginAlert';
+import { SocketContext } from '../context/SocketContext';
 
 const LikeBlog = ({likes,userId,blogId,token,likesCount}) => {
     const {isOpen,onOpen,onClose} = useDisclosure();
     const { loginAlert } = useLoginAlert();
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const { socket } = useContext(SocketContext);
     const handleLike = () => {
-      !userId? 
-      loginAlert(): likes.find((el) => el._id===userId)?
-      (dispatch(({socket,token,likesCount:likesCount-1})))
+      !userId
+      ? loginAlert(): likes.find((el) => el._id===userId)
+      ? dispatch(removeBlogLike({blogId,socket,token,likesCount:likesCount-1})) :
+      dispatch(likeBlog({blogId,socket,token,likesCount:likesCount+1}))
     }
   return (
     <>
-     <Button onClick={onOpen}>Like</Button>
+     <Button onClick={onOpen}>
+        {likesCount>0?likesCount:null} {likesCount>1?"Likes":"Like"}
+     </Button>
 
 <Modal isOpen={isOpen} onClose={onClose}>
   <ModalOverlay />
   <ModalContent>
     <ModalHeader>
         <Flex>
-            <Text>Likes</Text>
+            <Text>Like</Text>
             <Spacer />
             <IconButton
              cursor={"pointer"}
              onClick={handleLike}
-
-             as={likes.find((el) => el._id===userId? AiFillLike:AiOutlineLike)} />
+             variant="unstyled"
+             size="sm"
+             color="blue"
+             as={likes.find((el) => el._id===userId)? AiFillLike : AiOutlineLike } />
 
         </Flex>
     </ModalHeader>
     <ModalCloseButton />
     <ModalBody>
     {
-        likes.map((el) => <SingleLike key={el._id} like={el} userId={userId} blogId={blogId} />)
+        likes.map((el) => (<SingleLike key={el._id} like={el} userId={userId} blogId={blogId} />))
     }
     </ModalBody>
 

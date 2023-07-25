@@ -51,7 +51,7 @@ const BlogCard = ({blog,user,token,socket}) => {
         {blog.content}
       </Text>
       </Link>
-      <LikeBlog token={token} blogId={blog._id} userId={user?(user.id):null} likes={blog.likes} likesCount={blog.likes.likesCount} />
+      <LikeBlog token={token} blogId={blog._id} userId={user? user.id : null} likes={blog.likes} likesCount={blog.likesCount} />
       <DeleteBlog id={blog._id} blog={blog} token={token} user={user} socket={socket} />
       <EditBlog id={blog._id} blog={blog} token={token} socket={socket} />  
     </Box>

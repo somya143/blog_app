@@ -90,7 +90,8 @@ export const likeBlog = (payload) => async (dispatch) => {
     try {
         const response = await axios_instance.patch(`http://localhost:8080/likes/likeBlog` , {
             blogId: payload.blogId,
-            likesCount : payload.likesCount
+            likesCount : payload.likesCount,
+            name : payload.name
         },
         {
             headers : {authorization : payload.token}
