@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import {
     Modal,
     ModalOverlay,
@@ -12,30 +12,44 @@ import {
     IconButton,
     Flex,
     Text,
-    Spacer
+    Spacer,
+    Box
   } from '@chakra-ui/react';
-  import { AiFillLike , AiFillDislike , AiOutlineLike } from "react-icons/ai";
+import { AiFillLike , AiOutlineLike } from "react-icons/ai";
 import SingleLike from './SingleLike';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { likeBlog, removeBlogLike } from '../redux/blog/blog.action';
 import useLoginAlert from '../custom/useLoginAlert';
 import { SocketContext } from '../context/SocketContext';
 
-const LikeBlog = ({likes,userId,blogId,token,likesCount}) => {
+const LikeBlog = ({likes,userId,blogId,likesCount}) => {
+    const ref = useRef();
     const {isOpen,onOpen,onClose} = useDisclosure();
     const { loginAlert } = useLoginAlert();
     const dispatch = useDispatch();
+    const { token } = useSelector((store) => store?.auth);
     const { socket } = useContext(SocketContext);
     const handleLike = () => {
-      !userId
-      ? loginAlert(): likes.find((el) => el._id===userId)
-      ? dispatch(removeBlogLike({blogId,socket,token,likesCount:likesCount-1})) :
-      dispatch(likeBlog({blogId,socket,token,likesCount:likesCount+1}))
+      (!userId)
+      ? loginAlert()
+      : likes?.find((el) => el._id===userId)
+      ? (dispatch(removeBlogLike({blogId,socket,token,likesCount:likesCount - 1})) )
+      :
+      (dispatch(likeBlog({blogId,socket,token,likesCount:likesCount + 1})))
     }
   return (
-    <>
-     <Button onClick={onOpen}>
-        {likesCount>0?likesCount:null} {likesCount>1?"Likes":"Like"}
+    <Box ref={ref}>
+     <Button onClick={onOpen} my={4} mb="0"
+        size="sm"
+        type="submit"
+        variant="unstyled"
+        fontSize="20px"
+        w="100%"
+        fontWeight="hairline"
+        color="#3b7af7"
+        ref={ref}
+        >
+        {likesCount>0 ? likesCount : null} {likesCount>1 ? "Likes" : "Like"}
      </Button>
 
 <Modal isOpen={isOpen} onClose={onClose}>
@@ -43,7 +57,7 @@ const LikeBlog = ({likes,userId,blogId,token,likesCount}) => {
   <ModalContent>
     <ModalHeader>
         <Flex>
-            <Text>Like</Text>
+            <Text>Likes</Text>
             <Spacer />
             <IconButton
              cursor={"pointer"}
@@ -51,14 +65,15 @@ const LikeBlog = ({likes,userId,blogId,token,likesCount}) => {
              variant="unstyled"
              size="sm"
              color="blue"
-             as={likes.find((el) => el._id===userId)? AiFillLike : AiOutlineLike } />
+             pl={"-10px"}
+             as={(likes?.find((el) => el._id===userId))? (AiFillLike) : (AiOutlineLike) } 
+             />
 
         </Flex>
     </ModalHeader>
-    <ModalCloseButton />
     <ModalBody>
     {
-        likes.map((el) => (<SingleLike key={el._id} like={el} userId={userId} blogId={blogId} />))
+        likes?.map((el) => (<SingleLike  key={el._id} like={el} />))
     }
     </ModalBody>
 
@@ -69,7 +84,7 @@ const LikeBlog = ({likes,userId,blogId,token,likesCount}) => {
     </ModalFooter>
   </ModalContent>
 </Modal>
-    </>
+    </Box>
   )
 }
 

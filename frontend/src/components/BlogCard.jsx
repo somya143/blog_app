@@ -8,6 +8,11 @@ import LikeBlog from './LikeBlog';
 
 const BlogCard = ({blog,user,token,socket}) => {
   const { author } = blog;
+  //const likeArr = blog.likes.map((el) => el.likesCount)
+  //console.log(likeArr)
+  console.log(blog)
+  console.log(blog.likes);
+  //console.log(author)
   return (
     <Box bg="blackAlpha.900"
     borderRadius="10px"
@@ -25,7 +30,7 @@ const BlogCard = ({blog,user,token,socket}) => {
           (<Text color={"#fff"}>Author is anonymus</Text>)
           }
           <Text color={"#fff"}>
-            {moment(new Date(blog.createdAt.toLocaleString())).format(
+            {moment(new Date(blog.createdAt?.toLocaleString())).format(
                 ` MMMM Do YYYY, h:mm:ss a`
             )}
           </Text>

@@ -18,7 +18,7 @@ const Blog = () => {
   const user = token?jwtDecode(token): null;
   // console.log(socket)
   // let limit = 2;
-  // console.log(data)
+   //console.log(data)
   let total;
   const totalData = () => {
      total = Math.floor((data.length)*page)
