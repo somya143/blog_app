@@ -16,6 +16,9 @@ function SingleLike({like}) {
             <Text fontSize={"19px"} fontFamily={"sans-serif"} color={"white"}>
              {like.name}
             </Text>
+            <Text fontSize={"19px"} fontFamily={"sans-serif"} color={"white"}>
+             {like.email}
+            </Text>
           </Box>
         </SlideFade>
       </>
