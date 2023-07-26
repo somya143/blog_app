@@ -7,8 +7,8 @@ app.get("/" , async(req,res) => {
     const { limit,page } = req.query
     try {
         const blog = await Blog.find().limit(limit).skip((page-1)*limit).sort({_id:-1}).populate({path: "author" , select:["name","_id","email","age"]})
-        .populate({path: "comment.commentAuthor" , select:["name","_id","email","age"]})
-        .populate({path: "likes" , select: ["name","_id","email","age"]});
+        .populate({path: "comment.commentAuthor" , select:["name","_id","email"]})
+        .populate({path: "likes" , select: ["name","_id","email"]});
         
         if(!blog){
             return res.status(400).send("blog not found")
@@ -58,18 +58,18 @@ app.delete("/:id", authMiddleware  , async(req,res) => {
 })
 
 app.patch("/:id" , authMiddleware , async(req,res) => {
-    let { id } = req.params;
-    let { title, content } = req.body;
     try {
+        let { id } = req.params;
+        let { title, content } = req.body;
         const blog = await Blog.findById(id);
         if(!req.id.equals(blog.author)){
-          return res.send("You are not authorized to change data");
+          return res.send({error:true, message:"You are not authorized to change data"});
         }else{
             const patchData = await Blog.findByIdAndUpdate(id,{title,content},{new:true})
             .populate({path:"author" , select:["name","_id","email","age"]})
             .populate({path:"likes" , select:["name","_id","email","age"]})
             .populate({path:"comment.commentAuthor", select:["name","_id","email","age"]});
-            return res.send({message:"Blog updated successfully",patchData})
+            return res.send({error:false,message:"Blog updated successfully",patchData})
         }
     } catch (error) {
         return res.send(error.message);

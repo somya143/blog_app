@@ -4,13 +4,13 @@ const app = express.Router();
 const authMiddleware = require("../../middleware/authMiddleware");
 
 app.patch("/likeBlog" ,authMiddleware, async(req,res) => {
-    const {blogId , likesCount} = req.body;
-   try {
+    try {
+    const { blogId , likesCount } = req.body;
     const likedBlog = await Blog.findByIdAndUpdate(
         blogId,
         {
-            $addToSet :{likes:req.id},
-            likesCount
+            likesCount,
+            $addToSet :{ likes : req.id },
         },
         {new:true})
     .populate({path: "author" , select:["_id","name","email"]})
@@ -27,7 +27,8 @@ app.patch("/unlikeBlog" ,authMiddleware, async(req,res) => {
     try {
         const unlikedBlog = await Blog.findByIdAndUpdate(
             blogId,
-            {$pull:{likes:req.id},
+            {
+             $pull:{likes:req.id},
              likesCount
             },
             {new:true}

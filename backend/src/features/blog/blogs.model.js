@@ -16,16 +16,15 @@ const blogSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "auth",
     required: true,
-  },
- likes: [{
-   likesCount: {type: Number, required:true,default:0}
 },
-{
-    type: mongoose.Types.ObjectId,
-    ref: "auth",
-    required: true
-}
-],
+likesCount: {type: Number,default:0},
+ likes: [
+     {
+         type: mongoose.Types.ObjectId,
+         ref: "auth",
+         required: true
+        },
+    ],
  comment: [commentSchema],
  image:{type: String, default:"https://images.pexels.com/photos/963278/pexels-photo-963278.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"}
 
