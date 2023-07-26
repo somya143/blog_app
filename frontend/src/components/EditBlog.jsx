@@ -37,7 +37,7 @@ const EditBlog = ({blog,token,socket}) => {
     }
   return (
     <>
-     <Button onClick={onOpen} mt={"30px"} width={"100%"} fontSize={"21px"} bg={"orange"}>Edit</Button>
+     <Button onClick={onOpen} mt={"20px"} width={"100%"} fontSize={"21px"} bg={"orange"}>Edit</Button>
      <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
