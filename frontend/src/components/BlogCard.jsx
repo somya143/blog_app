@@ -5,9 +5,11 @@ import { Link as ReachLink } from "react-router-dom";
 import DeleteBlog from './DeleteBlog';
 import EditBlog from './EditBlog';
 import LikeBlog from './LikeBlog';
+import Comment from './Comment';
 
 const BlogCard = ({blog,user,token,socket}) => {
   const { author } = blog;
+  console.log(blog.comment)
   return (
     <Box bg="blackAlpha.900"
     borderRadius="10px"
@@ -52,7 +54,12 @@ const BlogCard = ({blog,user,token,socket}) => {
           {blog.content.length > 200 ? "..." : ""}
         </Box>
       </Link>
+      <Flex gap={"10px"}>
       <LikeBlog token={token} blogId={blog._id} userId={user? user.id : null} likes={blog.likes} likesCount={blog.likesCount} />
+      <Spacer />
+      <Comment userId={user?user.id:null} token={token} blogId={blog._id} comments={blog.comment} />
+      </Flex>
+
       <DeleteBlog id={blog._id} blog={blog} token={token} user={user} socket={socket} />
       <EditBlog id={blog._id} blog={blog} token={token} socket={socket} />  
     </Box>

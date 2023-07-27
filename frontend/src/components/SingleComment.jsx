@@ -10,7 +10,7 @@ const SingleComment = ({comment,userId,blogAuthor,blogId}) => {
     const dispatch = useDispatch();
     const { socket } = useContext(SocketContext);
     const { token } = useSelector((store) => store?.auth);
-    const handleClick = () => {
+    const handleDelete = () => {
         dispatch(removeComment({blogId,commentId:comment._id,socket,token}))
     }
   return (
@@ -20,26 +20,26 @@ const SingleComment = ({comment,userId,blogAuthor,blogId}) => {
           p='40px'
           color='white'
           mt='4'
-          bg='teal.500'
+          bg='gray.200'
           rounded='md'
           shadow='md'
         >
           <Flex>
             <Box>
-                <Text>
-                    {Comment.commentAuthor.name}
+                <Text color={"black"}>
+                    {comment.commentAuthor.name}
                 </Text>
                 <Tooltip label={`${moment(new Date(comment.createdAt.toLocaleString())).format(" D MMM  YYYY, h:mm:ss a")}`} aria-label='A tooltip'>
-                    <Text>{moment(new Date(comment.createdAt.toLocaleString())).fromNow()}</Text>
+                    <Text color={"black"}>{moment(new Date(comment.createdAt.toLocaleString())).fromNow()}</Text>
                 </Tooltip>
             </Box>
             <Spacer />
             {
                 (userId && comment.commentAuthor._id === userId) || (blogAuthor === userId) ? 
-                (<CommentMenu handleClick={handleClick} />) : null
+                (<CommentMenu handleDelete={handleDelete} />) : null
             }
           </Flex>
-        <Text fontSize="15px" fontWeight="200" color="whiteAlpha.800">
+        <Text fontSize="19px" fontWeight="500" color="orange.700">
             {comment.commentString}
         </Text>
         </Box>

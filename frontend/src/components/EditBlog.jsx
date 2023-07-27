@@ -3,10 +3,8 @@ import { Box,
     Modal,
     ModalOverlay,
     ModalContent,
-    ModalHeader,
     ModalFooter,
     ModalBody,
-    ModalCloseButton,
     useDisclosure,
     FormControl,
     FormLabel,
@@ -69,7 +67,7 @@ const EditBlog = ({blog,token,socket}) => {
 
           <ModalFooter>
             <Button colorScheme='blue' mr={3} onClick={handleClick} >
-              Update
+              {"Update"}
             </Button>
             <Button variant='ghost' onClick={onClose}>Cancel</Button>
           </ModalFooter>

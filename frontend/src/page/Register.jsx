@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
     FormControl,
     FormLabel,
@@ -23,6 +23,7 @@ import Loading from '../components/Loading';
 import Error from '../components/Error';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
+import { SocketContext } from '../context/SocketContext';
 
 const Register = () => {
 const [register , setRegister] = useState({});
@@ -30,7 +31,7 @@ const {isSignUp,isError,isLoading} = useSelector((store) => store.auth)
 const dispatch = useDispatch();
 const toast = useToast();
 const navigate = useNavigate();
-
+const { socket } = useContext(SocketContext);
 
 const handleChange = (e) => {
       const {name, value} = e.target;
@@ -41,7 +42,7 @@ const handleChange = (e) => {
   
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(getRegister(register))
+    dispatch(getRegister(register,socket))
     
   }
   useEffect(() => {

@@ -74,12 +74,12 @@ export const updateBlog = (payload) => async(dispatch) => {
             headers : { authorization : payload.token}
         });
         if(!response.data.error){
-            dispatch({ type: update_blog_success , payload: response.data });
-            payload.socket.emit("update-blog" , response.data)
+            dispatch({ type: update_blog_success , payload: response.data.data });
+            payload.socket.emit("update-blog" , response.data.data)
         }else{
             dispatch({ type: update_blog_failure})
         }
-        console.log(response.data)
+        console.log(response.data.data)
     } catch (error) {
         dispatch({ type: update_blog_failure , payload : error.message });
     }
@@ -132,7 +132,7 @@ export const removeBlogLike = (payload) => async(dispatch) => {
 export const commentBlog = (payload) => async(dispatch) => {
     dispatch({ type: comment_blog_loading });
     try {
-        const response = await axios_instance.post(`http:localhost:8080/comments` , {
+        const response = await axios_instance.post(`http://localhost:8080/comments` , {
             blogId : payload.blogId,
             comment : payload.comment
         },
@@ -145,6 +145,7 @@ export const commentBlog = (payload) => async(dispatch) => {
         }else{
             dispatch({ type: comment_blog_failure });
         }
+        console.log(response.data.commentData)
     } catch (error) {
         dispatch({ type: comment_blog_failure , payload : error.message })
     }
