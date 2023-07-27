@@ -8,11 +8,6 @@ import LikeBlog from './LikeBlog';
 
 const BlogCard = ({blog,user,token,socket}) => {
   const { author } = blog;
-  //const likeArr = blog.likes.map((el) => el.likesCount)
-  //console.log(likeArr)
-  console.log(blog)
-  console.log(blog.likes);
-  //console.log(author)
   return (
     <Box bg="blackAlpha.900"
     borderRadius="10px"
@@ -52,9 +47,10 @@ const BlogCard = ({blog,user,token,socket}) => {
       <Text color={"#fff"}>
         {blog.title}
       </Text>
-      <Text color={"#fff"}>
-        {blog.content}
-      </Text>
+      <Box fontSize="20px" color="whiteAlpha.800" fontWeight="200">
+          {blog.content.substring(0, 200)}
+          {blog.content.length > 200 ? "..." : ""}
+        </Box>
       </Link>
       <LikeBlog token={token} blogId={blog._id} userId={user? user.id : null} likes={blog.likes} likesCount={blog.likesCount} />
       <DeleteBlog id={blog._id} blog={blog} token={token} user={user} socket={socket} />
