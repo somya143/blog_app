@@ -26,6 +26,12 @@ io.on("connection" , (socket) => {
     socket.on("disconnect" , (socket) => {
     console.log(`User disconnected with socket-id: ${socket.id}`)
     });
+    socket.on("new-user-signedup", (data) => {
+        socket.broadcast.emit("new-user-signedup" , data)
+    });
+    socket.on("user-login" , (data) => {
+        socket.broadcast.emit("user-login" , data)
+    });
     socket.on("new-blog" , (data) => {
         socket.broadcast.emit("new-blog",data)
     });

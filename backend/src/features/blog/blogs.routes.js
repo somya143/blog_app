@@ -69,7 +69,7 @@ app.patch("/:id" , authMiddleware , async(req,res) => {
             .populate({path:"author" , select:["name","_id","email","age"]})
             .populate({path:"likes" , select:["name","_id","email","age"]})
             .populate({path:"comment.commentAuthor", select:["name","_id","email","age"]});
-            return res.send({error:false,message:"Blog updated successfully",patchData})
+            return res.send({error:false,message:"Blog updated successfully",data:patchData})
         }
     } catch (error) {
         return res.send(error.message);
