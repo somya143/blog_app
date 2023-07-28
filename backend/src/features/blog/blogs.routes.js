@@ -63,14 +63,14 @@ app.patch("/:id" , authMiddleware , async(req,res) => {
         let { title, content } = req.body;
         const blog = await Blog.findById(id);
         if(!req.id.equals(blog.author)){
-          return res.send({error:true, message:"You are not authorized to change data"});
-        }else{
+          return res.status(401).send({error:true, message:"You are not authorized to change data"});
+        }
             const patchData = await Blog.findByIdAndUpdate(id,{title,content},{new:true})
             .populate({path:"author" , select:["name","_id","email","age"]})
             .populate({path:"likes" , select:["name","_id","email","age"]})
             .populate({path:"comment.commentAuthor", select:["name","_id","email","age"]});
-            return res.send({error:false,message:"Blog updated successfully",data:patchData})
-        }
+            return res.send({error:false,message:"Blog updated successfully",patchData})
+        
     } catch (error) {
         return res.send(error.message);
     }
