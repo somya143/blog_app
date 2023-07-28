@@ -1,0 +1,9 @@
+@media screen and (max-width: 340px) {
+    .homeBtn{
+      flex-direction: column;
+      gap: 20px;
+    }
+    .homeBtn>button{
+        width: 100%;
+    }
+}
