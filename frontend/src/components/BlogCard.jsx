@@ -10,9 +10,9 @@ import Comment from './Comment';
 const BlogCard = ({blog,user,token,socket}) => {
   const { author } = blog;
   //console.log(blog)
-  console.log(author)
-  console.log(author._id)
-  console.log(user.id)
+  //console.log(author)
+  //console.log(author._id)
+  //console.log(user.id)
   
   return (
     <Box bg="blackAlpha.900"
