@@ -16,15 +16,13 @@ import Loading from '../components/Loading';
 import Error from "../components/Error";
 import { useNavigate } from "react-router-dom";
 import Sidebar from '../components/Sidebar';
-import { SocketContext } from '../context/SocketContext';
 
 const Login = () => {
     const [login , setLogin] = useState({});
     const { isAuth,isError,isLoading } = useSelector((store) => store.auth)
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { socket } = useContext(SocketContext);
-    const toast = useToast();
+   
       const handleChange = (e) => {
           const {name, value} = e.target;
           setLogin({...login , 
@@ -34,7 +32,7 @@ const Login = () => {
     
       const handleSubmit = (e) => {
        e.preventDefault();
-       dispatch(getLogin(login,socket))
+       dispatch(getLogin(login))
       }
      
       useEffect(() => {
@@ -45,7 +43,7 @@ const Login = () => {
             navigate("/login")
            }
           
-        }, [isAuth,navigate,toast])
+        }, [isAuth,navigate])
     
       if(isLoading){
         return <Loading />

@@ -10,27 +10,38 @@ import { Box,
     FormLabel,
     Input,
     Textarea,
+    useToast
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { useDispatch } from "react-redux";
-import { updateBlog } from '../redux/blog/blog.action';
+import { getBlogs, updateBlog } from '../redux/blog/blog.action';
 
-const EditBlog = ({blog,token,socket}) => {
+const EditBlog = ({blog,token,socket,userId,author}) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [post , setPost] = useState({...blog});
     const dispatch = useDispatch();
-
+    const toast = useToast();
     const handleChange = (e) => {
         setPost({...post, [e.target.name] : e.target.value})
     }
+    const showToastMessage = () => {
+      toast({
+        title: 'Hello Anonymos Person!',
+        description: 'You are not authorized to Edit this blog.',
+        status: 'error',
+        position: "top",
+        duration: 5000,
+        isClosable: true,
+      });
+    };
     const handleClick = () => {
-        dispatch(updateBlog({
+      (author._id===userId && author !== null)?dispatch(updateBlog({
             id:blog._id,
             token,
             socket,
             title:post.title,
             content :post.content
-        }));
+        })): (showToastMessage())
         onClose()
     }
   return (

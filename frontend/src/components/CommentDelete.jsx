@@ -19,7 +19,7 @@ const CommentDelete = ({ handleDelete }) => {
   }
   return (
     <>
-    <Button onClick={onOpen} width={"100%"}>Delete Blog</Button>
+    <Button onClick={onOpen} width={"100%"}>Delete Comment</Button>
     <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>

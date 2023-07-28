@@ -74,12 +74,12 @@ export const updateBlog = (payload) => async(dispatch) => {
             headers : { authorization : payload.token}
         });
         if(!response.data.error){
-            dispatch({ type: update_blog_success , payload: response.data.data });
-            payload.socket.emit("update-blog" , response.data.data)
+            dispatch({ type: update_blog_success , payload: response.data.patchData });
+            payload.socket.emit("update-blog" , response.data.patchData)
         }else{
             dispatch({ type: update_blog_failure})
         }
-        console.log(response.data.data)
+        console.log(response.data.patchData)
     } catch (error) {
         dispatch({ type: update_blog_failure , payload : error.message });
     }

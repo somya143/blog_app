@@ -18,15 +18,13 @@ export const getLogin = (paylaod) => async(dispatch) => {
     dispatch({type: auth_login_loading});
     try {
     const response = await axios.post("http://localhost:8080/auths/login", paylaod);
-    if(response.data.error === false){
+    if(response.data && response.data.error === false){
     dispatch({ type: auth_login_success, payload: response.data });
-    paylaod.socket.emit("user-login" , response.data)
-}else{
-    console.log("auth_login_failure")
+    }else{
     dispatch({type: auth_login_failure , payload : response.data })
-}  
-    console.log(response.data)
-    } catch (error) {
+   }  
+  console.log(response.data)
+   } catch (error) {
         dispatch({type: auth_login_failure , payload : error.message})
 
     }

@@ -1,4 +1,4 @@
-import { Box, Flex, VStack, Text, Spacer, Image, Link } from '@chakra-ui/react'
+import { Box, Flex, VStack, Text, Spacer, Image, Link, useToast } from '@chakra-ui/react'
 import React, { useState } from 'react';
 import moment from "moment"
 import { Link as ReachLink } from "react-router-dom";
@@ -9,7 +9,11 @@ import Comment from './Comment';
 
 const BlogCard = ({blog,user,token,socket}) => {
   const { author } = blog;
-  console.log(blog.comment)
+  //console.log(blog)
+  console.log(author)
+  console.log(author._id)
+  console.log(user.id)
+  
   return (
     <Box bg="blackAlpha.900"
     borderRadius="10px"
@@ -61,7 +65,7 @@ const BlogCard = ({blog,user,token,socket}) => {
       </Flex>
 
       <DeleteBlog id={blog._id} blog={blog} token={token} user={user} socket={socket} />
-      <EditBlog id={blog._id} blog={blog} token={token} socket={socket} />  
+      <EditBlog id={blog._id} blog={blog} token={token} socket={socket} author={author} userId={user?user.id:null}   />
     </Box>
   )
 }
