@@ -16,18 +16,11 @@ const Blog = () => {
   const dispatch = useDispatch();
   const { token } = useSelector((store) => store?.auth);
   const user = token?jwtDecode(token): null;
-  // let limit = 2;
-   //console.log(data)
-  // let total;
-  // const totalData = () => {
-  //    total = Math.floor((data.length)*page)
-  // }
-  // totalData();
-
+ 
   useEffect(() => {
     dispatch(getBlogs(page))
     }, [dispatch,page])
-  //console.log(total)
+  
   return (
     <Box>
         <Flex>
@@ -51,7 +44,7 @@ const Blog = () => {
           
          </Box>
         </Flex>
-         <Pagination handlePageClick={(val) => setPage(val)} current={page} />
+         <Pagination handlePageClick={(val) => setPage(val)} current={page} data={data} />
     </Box>
   )
 }

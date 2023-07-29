@@ -15,15 +15,15 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { deleteBlog } from '../redux/blog/blog.action';
 
-const DeleteBlog = ({token,id,user,blog,socket}) => {
+const DeleteBlog = ({token,id,user,blog,socket,userId}) => {
     const dispatch = useDispatch();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const toast = useToast();
     const { author } = blog;
     const showToastMessage = () => {
       toast({
-        title: 'Hello Anonymos Person!',
-        description: 'You are not authorized to delete this blog.',
+        title: `Hey ${user.name}!`,
+        description: `You are not authorized to delete this blog.`,
         status: 'error',
         position: "top",
         duration: 5000,
@@ -31,7 +31,7 @@ const DeleteBlog = ({token,id,user,blog,socket}) => {
       });
     };
     const handleClick = () => {
-       (author._id===user.id && author !== null)? (dispatch(deleteBlog({id,token,socket}))) : (showToastMessage())
+       (author._id===userId && author !== null)? (dispatch(deleteBlog({id,token,socket}))) : (showToastMessage())
        onClose()
         }
   return (
@@ -49,7 +49,20 @@ const DeleteBlog = ({token,id,user,blog,socket}) => {
         <ModalContent>
           <ModalHeader>Delete Blog</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>
+          <ModalBody maxH="60vh"
+              overflowY="auto"
+              sx={{
+                "&::-webkit-scrollbar": {
+                  width: "4px",
+                },
+                "&::-webkit-scrollbar-track": {
+                  width: "6px",
+                },
+                "&::-webkit-scrollbar-thumb": {
+                  background: "blue",
+                  borderRadius: "24px",
+                },
+              }}>
             <Text>Are you sure you want to delete this blog</Text>
           </ModalBody>
 

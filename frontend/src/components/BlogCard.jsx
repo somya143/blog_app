@@ -9,10 +9,6 @@ import Comment from './Comment';
 
 const BlogCard = ({blog,user,token,socket}) => {
   const { author } = blog;
-  //console.log(blog)
-  //console.log(author)
-  //console.log(author._id)
-  //console.log(user.id)
   
   return (
     <Box bg="blackAlpha.900"
@@ -64,8 +60,8 @@ const BlogCard = ({blog,user,token,socket}) => {
       <Comment userId={user?user.id:null} token={token} blogId={blog._id} comments={blog.comment} />
       </Flex>
 
-      <DeleteBlog id={blog._id} blog={blog} token={token} user={user} socket={socket} />
-      <EditBlog id={blog._id} blog={blog} token={token} socket={socket} author={author} userId={user?user.id:null}   />
+      <DeleteBlog id={blog._id} blog={blog} token={token} user={user} userId={user?user.id:null}  socket={socket} />
+      <EditBlog id={blog._id} blog={blog} token={token} socket={socket} author={author} userId={user?user.id:null}  />
     </Box>
   )
 }

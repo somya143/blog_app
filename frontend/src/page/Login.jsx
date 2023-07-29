@@ -6,7 +6,6 @@ import {
     Box,
     Heading,
     Button,
-    useToast,
     Flex
   } from '@chakra-ui/react';
 
@@ -14,7 +13,7 @@ import { useDispatch,useSelector } from "react-redux";
 import { getLogin } from '../redux/auth/auth.action';
 import Loading from '../components/Loading';
 import Error from "../components/Error";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Sidebar from '../components/Sidebar';
 
 const Login = () => {
@@ -22,7 +21,7 @@ const Login = () => {
     const { isAuth,isError,isLoading } = useSelector((store) => store.auth)
     const dispatch = useDispatch();
     const navigate = useNavigate();
-   
+    const { state } = useLocation();
       const handleChange = (e) => {
           const {name, value} = e.target;
           setLogin({...login , 
@@ -36,14 +35,12 @@ const Login = () => {
       }
      
       useEffect(() => {
-        if(isAuth){
+        if(isAuth && state && state.from){
+           navigate(state?.from, {replace : true})
+          }else if(isAuth){
           navigate("/blogs")
-          
-           }else{
-            navigate("/login")
            }
-          
-        }, [isAuth,navigate])
+        }, [isAuth,navigate,state])
     
       if(isLoading){
         return <Loading />

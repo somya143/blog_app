@@ -1,4 +1,4 @@
-import { Box, FormControl, FormLabel, Heading, Input, Button, Flex, Center, Textarea } from '@chakra-ui/react'
+import { Box, FormControl, FormLabel, Heading, Input, Button, Flex, Center, Textarea, useToast } from '@chakra-ui/react'
 import React, { useState,useContext } from 'react'
 import Sidebar from '../components/Sidebar'
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,6 +19,17 @@ const Write = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { socket } = useContext(SocketContext);
+  const toast = useToast;
+  const successToast = () => {
+    toast({
+      title: 'Hello Sir!',
+      description: 'Blog created successfully',
+      status: 'success',
+      position: "top",
+      duration: 5000,
+      isClosable: true,
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -32,6 +43,7 @@ const Write = () => {
     setImage("")
     
   }
+  
 
    if(isLoading){
     return <Loading />

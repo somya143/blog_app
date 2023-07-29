@@ -1,18 +1,13 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux"
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 
 
 const PrivateRoute = ({ children }) => {
     const { isAuth } = useSelector((store) => store?.auth);
-    const navigate = useNavigate();
-    useEffect(() => {
-     if(!isAuth){
-        navigate("/login")
-     }
-    }, [isAuth,navigate]);
+    const { pathname } = useLocation()
     if(!isAuth){
-        return <Navigate to="/login" />
+        return <Navigate to="/login" state={{from : pathname}} replace />
     }
   return children
 }
