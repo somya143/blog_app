@@ -7,12 +7,10 @@ export const getBlogs = (page=1,limit=2) => async(dispatch) => {
     dispatch({ type: get_blog_loading });
     try {
         const response =  await axios.get(`http://localhost:8080/blogs?page=${page}&limit=${limit}`);
-        dispatch({ type: get_blog_success, payload: response.data });
-         //console.log(response.data.blog)
+        dispatch({ type: get_blog_success, payload: response.data })
         return response.data;
         } catch (error) {
         dispatch({ type: get_blog_failure , payload: error.message });
-        //console.log(error.message)
     }
   };
 
@@ -33,7 +31,6 @@ export const createBlog = ({title,content,image,token,socket}) => async(dispatch
         socket.emit("new-blog" , data)
     } catch (error) {
         dispatch({ type: post_blog_failure , payload: error.message });
-        console.log(error.message)
     }
 }
 
@@ -79,7 +76,6 @@ export const updateBlog = (payload) => async(dispatch) => {
         }else{
             dispatch({ type: update_blog_failure})
         }
-        console.log(response.data.patchData)
     } catch (error) {
         dispatch({ type: update_blog_failure , payload : error.message });
     }
@@ -101,7 +97,7 @@ export const likeBlog = (payload) => async (dispatch) => {
         }else{
             dispatch({ type: like_blog_failure })
         }
-        console.log(response.data.data);
+
     } catch (error) {
         dispatch({ type: like_blog_failure , payload : error.message })
     }
@@ -123,7 +119,6 @@ export const removeBlogLike = (payload) => async(dispatch) => {
         }else{
             dispatch({ type: unlike_blog_failure })
         }
-        console.log(response.data.data);
     } catch (error) {
         dispatch({ type:unlike_blog_failure , payload:error.message })
     }
@@ -145,7 +140,6 @@ export const commentBlog = (payload) => async(dispatch) => {
         }else{
             dispatch({ type: comment_blog_failure });
         }
-        console.log(response.data.commentData)
     } catch (error) {
         dispatch({ type: comment_blog_failure , payload : error.message })
     }
