@@ -5,7 +5,7 @@ import { Link as ReachLink } from "react-router-dom";
 import DeleteBlog from './DeleteBlog';
 import LikeBlog from './LikeBlog';
 import Comment from './Comment';
-import SpinnerLoader from './SpinnerLoading';
+import SpinnerLoading from './SpinnerLoading';
 const EditBlog = lazy(() => import("./EditBlog"));
 
 const BlogCard = ({blog,user,token,socket}) => {
@@ -64,7 +64,7 @@ const BlogCard = ({blog,user,token,socket}) => {
       <Comment userId={user?user.id:null} token={token} blogId={blog._id} comments={blog.comment} />
       </Flex>
       <DeleteBlog id={blog._id} blog={blog} token={token} user={user} userId={user?user.id:null}  socket={socket} />
-      <Suspense fallback={<div><SpinnerLoader /></div>}>
+      <Suspense fallback={<div><SpinnerLoading /></div>}>
       <EditBlog id={blog._id} blog={blog} token={token} socket={socket} author={author} userId={user?user.id:null} user={user}  />
       </Suspense>
 

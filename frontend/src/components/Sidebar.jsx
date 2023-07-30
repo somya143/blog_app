@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box,Text,List,ListItem,ListIcon,Link, Flex, Button } from "@chakra-ui/react";
+import { Box,Text,List,ListItem,ListIcon,Link, Flex, Button, useBreakpointValue } from "@chakra-ui/react";
 import { Link as ReachLink , useNavigate } from "react-router-dom";
 import { FcHome } from "react-icons/fc";
 import { FcBullish } from "react-icons/fc";
@@ -22,7 +22,7 @@ const Sidebar = () => {
   const handleClick = () => {
       token? dispatch(getSignout()) : navigate("/login")
   }
-  
+  const displayBreakUp = useBreakpointValue({ base: 'none', md: 'block' })
   return (
     <Box 
     float={"left"} 
@@ -32,7 +32,7 @@ const Sidebar = () => {
     border={"1px solid black"}
     bg={"gray.700"}
     overflowY={"auto"}
-    display={["none","none","block","block"]}
+    display={displayBreakUp}
     top="0"
     left="0"
     >

@@ -1,4 +1,4 @@
-import { Box, FormControl, FormLabel, Heading, Input, Button, Flex, Center, Textarea, useToast } from '@chakra-ui/react'
+import { Box, FormControl, FormLabel, Heading, Input, Button, Flex, Center, Textarea } from '@chakra-ui/react'
 import React, { useState,useContext } from 'react'
 import Sidebar from '../components/Sidebar'
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,7 +6,6 @@ import useLoginAlert from '../custom/useLoginAlert';
 import { createBlog } from '../redux/blog/blog.action';
 import Loading from '../components/Loading';
 import Error from '../components/Error';
-import { useNavigate } from "react-router-dom";
 import { SocketContext } from '../context/SocketContext';
 
 const Write = () => {
@@ -17,19 +16,7 @@ const Write = () => {
   const {isLoading, isError} = useSelector((store) => store.blog)
   const { loginAlert } = useLoginAlert()
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { socket } = useContext(SocketContext);
-  const toast = useToast;
-  const successToast = () => {
-    toast({
-      title: 'Hello Sir!',
-      description: 'Blog created successfully',
-      status: 'success',
-      position: "top",
-      duration: 5000,
-      isClosable: true,
-    });
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();

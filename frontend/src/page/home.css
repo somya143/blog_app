@@ -1,9 +1,20 @@
-@media screen and (max-width: 340px) {
+@media screen and (max-width: 400px) {
     .homeBtn{
       flex-direction: column;
       gap: 20px;
     }
     .homeBtn>button{
-        width: 100%;
+      width: 100%;
     }
+}
+
+@media screen and (min-width: 401px) and (max-width: 762px) {
+  .homeBtn{
+    flex-direction: column;
+    gap: 20px;
+  }
+  .homeBtn>button{
+    width: 100%;
+  }
+  
 }

@@ -47,9 +47,8 @@ const LikeBlog = ({likes,userId,blogId,likesCount}) => {
         w="100%"
         fontWeight="hairline"
         color="#3b7af7"
-        ref={ref}
         >
-        {likesCount>0 ? likesCount : null} {likesCount>1 ? "Likes" : "Like"}
+        {likesCount ?? 0} {likesCount===1 ? "Like" : "Likes"}
      </Button>
 
 <Modal isOpen={isOpen} onClose={onClose}>
@@ -65,6 +64,7 @@ const LikeBlog = ({likes,userId,blogId,likesCount}) => {
              variant="unstyled"
              size="sm"
              color="blue"
+             fontSize={"20px"}
              pl={"-10px"}
              as={(likes?.find((el) => el._id===userId))? (AiFillLike) : (AiOutlineLike) } 
              />

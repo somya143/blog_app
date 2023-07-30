@@ -11,7 +11,7 @@ const Home = () => {
      width="100%"
     height={{ base: "100vh", sm: "100vh", md: "100vh", lg: "100vh" }} >
     <Box width={"60%"} height={"500px"} margin={"auto"}  >
-        <Text pt={"3rem"} fontSize={"3.2rem"} fontWeight={700} fontFamily={"sans-serif"} color={"orange"}>Welcome to the Blog Application</Text>
+        <Text pt={"3rem"} fontSize={["2.2rem","2.6rem","3rem","3.3rem"]} fontWeight={700} fontFamily={"sans-serif"} color={"orange"}>Welcome to the Blog Application</Text>
         <Text fontSize={"1.5rem"} color={"orange"}>Register yourself to begin</Text>
          <Box display={"flex"} justifyContent={"space-around"} mt={"8rem"} className='homeBtn' >
             <Button variant={"ghost"} backgroundColor={"green.300"} textDecoration={"underline"}> <Link to="/register">Register Yourself</Link> </Button>

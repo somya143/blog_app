@@ -12,18 +12,20 @@ import { Box,
     Textarea,
     useToast
 } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useDispatch } from "react-redux";
 import { updateBlog } from '../redux/blog/blog.action';
+import SpinnerLoading from './SpinnerLoading';
 
 const EditBlog = React.memo(({blog,token,socket,userId,author,user}) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [post , setPost] = useState({...blog});
     const dispatch = useDispatch();
     const toast = useToast();
-    const handleChange = (e) => {
-        setPost({...post, [e.target.name] : e.target.value})
-    }
+    const [isLoading, setIsLoading] = useState(false);
+    const handleChange = useCallback((e) => {
+        setPost(prevPost => ({...prevPost, [e.target.name] : e.target.value}))
+    }, [])
     const showToastMessage = () => {
       toast({
         title: 'Hello Anonymos Person!',
@@ -49,6 +51,7 @@ const EditBlog = React.memo(({blog,token,socket,userId,author,user}) => {
         return showErrorToast();
         
       }
+      setIsLoading(true);
       if(author._id===userId && author !== null){
         dispatch(updateBlog({
             id:blog._id,
@@ -56,13 +59,26 @@ const EditBlog = React.memo(({blog,token,socket,userId,author,user}) => {
             socket,
             title:post.title,
             content :post.content
-        }))}
-        else{(showToastMessage())}
+        }))
+        .then(() => {
+          setIsLoading(false); 
+        })
+        .catch(() => {
+          setIsLoading(false); 
+        });
+      }
+        else{
+          setIsLoading(false)
+          (showToastMessage())
+        }
         onClose()
     }
   return (
     <>
-     <Button onClick={onOpen} mt={"20px"} width={"100%"} fontSize={"21px"} bg={"orange"}>Edit</Button>
+     {isLoading ? (
+        <SpinnerLoading /> 
+      ):(<>
+      <Button onClick={onOpen} mt={"20px"} width={"100%"} fontSize={"21px"} bg={"orange"}>Edit</Button>
      <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
@@ -94,12 +110,13 @@ const EditBlog = React.memo(({blog,token,socket,userId,author,user}) => {
 
           <ModalFooter>
             <Button colorScheme='blue' mr={3} onClick={handleClick} >
-              {"Update"}
+              Update
             </Button>
             <Button variant='ghost' onClick={onClose}>Cancel</Button>
           </ModalFooter>
         </ModalContent>
-      </Modal>
+      </Modal> 
+      </>)}
     </>
   )
 })

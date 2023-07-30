@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState, useContext, useMemo } from 'react'
 import Sidebar from '../components/Sidebar'
-import { Box, Flex, Heading, Text, Image, Center } from '@chakra-ui/react'
+import { Box, Flex, Heading, Text, Center } from '@chakra-ui/react'
 import { useSelector, useDispatch } from 'react-redux';
 import { getBlogs } from '../redux/blog/blog.action';
 import BlogCard from '../components/BlogCard';
@@ -8,18 +8,24 @@ import jwtDecode from 'jwt-decode';
 import { SocketContext } from '../context/SocketContext';
 import "./blog.css";
 import Pagination from '../components/Pagination';
+import SpinnerLoading from '../components/SpinnerLoading';
+
 const Blog = () => {
   const [page , setPage] = useState(1);
   const { socket } = useContext(SocketContext);
   const { isError , isLoading, data } = useSelector((store) => store?.blog)
-  //const { author, title, content } = data;
   const dispatch = useDispatch();
   const { token } = useSelector((store) => store?.auth);
   const user = token?jwtDecode(token): null;
- 
+  const fetchData = (page) => {
+    dispatch(getBlogs(page));
+  };
+  
   useEffect(() => {
-    dispatch(getBlogs(page))
-    }, [dispatch,page])
+    fetchData(page);
+  }, [page,dispatch]);
+
+  const memoisedData = useMemo(() => data, [data]);
   
   return (
     <Box>
@@ -32,11 +38,15 @@ const Blog = () => {
           </Heading>
           <Box className='blogBox'>
           {isLoading ? (
-            <Text>Loading...</Text>
+            <Center>
+            <SpinnerLoading />
+            </Center>
           ) : isError ? (
+            <Center>
             <Text>Error occurred while fetching data.</Text>
+            </Center>
           ) : (
-            data?.map((blog) => (
+            memoisedData?.map((blog) => (
               <BlogCard key={blog._id} blog={blog} user={user} token={token} socket={socket} />
             ))
           )}
@@ -44,7 +54,7 @@ const Blog = () => {
           
          </Box>
         </Flex>
-         <Pagination handlePageClick={(val) => setPage(val)} current={page} data={data} />
+         {!isError && !isLoading && (<Pagination handlePageClick={(val) => setPage(val)} current={page}  /> )}
     </Box>
   )
 }

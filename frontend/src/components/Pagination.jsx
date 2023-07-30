@@ -1,9 +1,9 @@
 import React from "react";
-import {Stack , Button , Text, Box, HStack} from "@chakra-ui/react";
+import {Stack , Button , Box, HStack} from "@chakra-ui/react";
 
-const Pagination = ({current,handlePageClick,data}) => {
+const Pagination = ({current,handlePageClick}) => {
     const prev = (
-        <Button backgroundColor="orange" color="white" isDisabled={current===1?true:false}  onClick={() => handlePageClick(current-1)} >
+        <Button backgroundColor="orange" color="white" variant={"unstyled"} isDisabled={current===1?true:false}  onClick={() => handlePageClick(current-1)} >
           Prev
         </Button>
     );
@@ -13,7 +13,7 @@ const Pagination = ({current,handlePageClick,data}) => {
     );
 
     const next = (
-      <Button  backgroundColor="orange"  color="white" onClick={() => handlePageClick(current+1)} >
+      <Button  backgroundColor="orange" variant={"unstyled"}  color="white" onClick={() => handlePageClick(current+1)} >
          Next
       </Button>
     )
@@ -29,8 +29,7 @@ return (
    {next}
     </Box>
     </HStack>
-    
-    </Stack>
+     </Stack>
 )
 }
 

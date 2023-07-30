@@ -20,8 +20,6 @@ const SingleBlogView = () => {
   useEffect(() => {
     data && setBlog(data.find((el) => el._id === id));
   }, [data,id])
-  console.log(blog)
-  //console.log(blog.author.name)
   return (
     <Box  minh="100vh" bg="rgba(0,0,0,91%)">
         
