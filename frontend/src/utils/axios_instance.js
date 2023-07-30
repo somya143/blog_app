@@ -7,7 +7,7 @@ axios_instance.interceptors.request.use(
     const token = req.headers["authorization"];
     const decoded = jwt_decode(token);
     if (decoded.exp * 1000 <= new Date().getTime()) {
-      const { data } = await axios.post(`http://localhost:8080/auths/refresh`, {
+      const { data } = await axios.post(`https://mybloggingapp.onrender.com/auths/refresh`, {
         refreshToken: localStorage.getItem("refreshToken"),
         token: localStorage.getItem("token"),
       });

@@ -54,8 +54,8 @@ const BlogCard = ({blog,user,token,socket}) => {
         {blog.title}
       </Text>
       <Box fontSize="20px" color="whiteAlpha.800" fontWeight="200">
-          {blog.content.substring(0, 200)}
-          {blog.content.length > 200 ? "..." : ""}
+          {blog.content?.substring(0, 200)}
+          {blog.content?.length > 200 ? "..." : ""}
         </Box>
       </Link>
       <Flex gap={"10px"}>

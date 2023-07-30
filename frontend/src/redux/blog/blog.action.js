@@ -2,11 +2,11 @@ import axios from "axios";
 import { comment_blog_failure, comment_blog_loading, comment_blog_success, delete_blog_failure, delete_blog_loading, delete_blog_success, get_blog_failure, get_blog_loading, get_blog_success, like_blog_failure, like_blog_loading, like_blog_success, post_blog_failure, post_blog_loading, post_blog_success, remove_comment_failure, remove_comment_loading, remove_comment_success, unlike_blog_failure, unlike_blog_loading, unlike_blog_success, update_blog_failure, update_blog_loadng, update_blog_success } from "./blog.actionType";
 import { axios_instance } from "../../utils/axios_instance";
 
-
+const api = process.env.REACT_BASE_API || "https://mybloggingapp.onrender.com"
 export const getBlogs = (page=1,limit=2) => async(dispatch) => {
     dispatch({ type: get_blog_loading });
     try {
-        const response =  await axios.get(`http://localhost:8080/blogs?page=${page}&limit=${limit}`);
+        const response =  await axios.get(`${api}/blogs`);
         dispatch({ type: get_blog_success, payload: response.data })
         return response.data;
         } catch (error) {
@@ -19,7 +19,7 @@ export const createBlog = ({title,content,image,token,socket}) => async(dispatch
     dispatch({ type: post_blog_loading });
     try {
         const { data } = await axios_instance.post(
-            `http://localhost:8080/blogs`,
+            `${api}/blogs`,
             { title, content, image },
             {
               headers: {
@@ -37,7 +37,7 @@ export const createBlog = ({title,content,image,token,socket}) => async(dispatch
 export const getSingleBlog = (id) => async(dispatch) => {
     dispatch({ type: get_blog_loading });
     try {
-        const response = await axios.get(`http://localhost:8080/blogs/${id}`);
+        const response = await axios.get(`${api}/blogs/${id}`);
         dispatch({ type: get_blog_failure , payload : response.data});
         return response.data;
     } catch (error) {
@@ -48,7 +48,7 @@ export const getSingleBlog = (id) => async(dispatch) => {
 export const deleteBlog = (payload) => async(dispatch) => {
     dispatch({ type: delete_blog_loading });
     try {
-        const response = await axios.delete(`http://localhost:8080/blogs/${payload.id}`, {headers: {authorization: payload.token}});
+        const response = await axios.delete(`${api}/blogs/${payload.id}`, {headers: {authorization: payload.token}});
         if(!response.data.error){
             dispatch({ type: delete_blog_success , payload : payload.id})
             payload.socket.emit("delete-blog" , payload.id)
@@ -63,7 +63,7 @@ export const deleteBlog = (payload) => async(dispatch) => {
 export const updateBlog = (payload) => async(dispatch) => {
     dispatch({ type: update_blog_loadng });
     try {
-        const response = await axios_instance.patch(`http://localhost:8080/blogs/${payload.id}`, {
+        const response = await axios_instance.patch(`${api}/blogs/${payload.id}`, {
             title : payload.title,
             content : payload.content
         },
@@ -84,7 +84,7 @@ export const updateBlog = (payload) => async(dispatch) => {
 export const likeBlog = (payload) => async (dispatch) => {
     dispatch({ type : like_blog_loading });
     try {
-        const response = await axios_instance.patch(`http://localhost:8080/likes/likeBlog` , {
+        const response = await axios_instance.patch(`${api}/likes/likeBlog` , {
             blogId: payload.blogId,
             likesCount : payload.likesCount,
         },
@@ -106,7 +106,7 @@ export const likeBlog = (payload) => async (dispatch) => {
 export const removeBlogLike = (payload) => async(dispatch) => {
     dispatch({ type: unlike_blog_loading });
     try {
-        const response = await axios_instance.patch(`http://localhost:8080/likes/unlikeBlog` , {
+        const response = await axios_instance.patch(`${api}/likes/unlikeBlog` , {
             blogId:payload.blogId,
             likesCount:payload.likesCount
         },
@@ -127,7 +127,7 @@ export const removeBlogLike = (payload) => async(dispatch) => {
 export const commentBlog = (payload) => async(dispatch) => {
     dispatch({ type: comment_blog_loading });
     try {
-        const response = await axios_instance.post(`http://localhost:8080/comments` , {
+        const response = await axios_instance.post(`${api}/comments` , {
             blogId : payload.blogId,
             comment : payload.comment
         },
@@ -148,7 +148,7 @@ export const commentBlog = (payload) => async(dispatch) => {
 export const removeComment = (payload) => async(dispatch) => {
     dispatch({ type: remove_comment_loading });
     try {
-        const response = await axios_instance.patch(`http://localhost:8080/comments` , {
+        const response = await axios_instance.patch(`${api}/comments` , {
             blogId : payload.blogId,
             commentId : payload.commentId
         },
