@@ -1,14 +1,20 @@
 import { Box, Flex, VStack, Text, Spacer, Image, Link, useToast } from '@chakra-ui/react'
-import React, { useState } from 'react';
+import React, { useMemo, lazy, Suspense } from 'react';
 import moment from "moment"
 import { Link as ReachLink } from "react-router-dom";
 import DeleteBlog from './DeleteBlog';
-import EditBlog from './EditBlog';
 import LikeBlog from './LikeBlog';
 import Comment from './Comment';
+import SpinnerLoader from './SpinnerLoading';
+const EditBlog = lazy(() => import("./EditBlog"));
 
 const BlogCard = ({blog,user,token,socket}) => {
   const { author } = blog;
+  const formattedDate = useMemo(() => {
+   return moment(new Date(blog.createdAt?.toLocaleString())).format(
+      ` MMMM Do YYYY, h:mm:ss a`
+  )
+}, [blog?.createdAt])
   
   return (
     <Box bg="blackAlpha.900"
@@ -27,9 +33,7 @@ const BlogCard = ({blog,user,token,socket}) => {
           (<Text color={"#fff"}>Author is anonymus</Text>)
           }
           <Text color={"#fff"}>
-            {moment(new Date(blog.createdAt?.toLocaleString())).format(
-                ` MMMM Do YYYY, h:mm:ss a`
-            )}
+            {formattedDate}
           </Text>
         </VStack>
         <Spacer />
@@ -59,9 +63,11 @@ const BlogCard = ({blog,user,token,socket}) => {
       <Spacer />
       <Comment userId={user?user.id:null} token={token} blogId={blog._id} comments={blog.comment} />
       </Flex>
-
       <DeleteBlog id={blog._id} blog={blog} token={token} user={user} userId={user?user.id:null}  socket={socket} />
-      <EditBlog id={blog._id} blog={blog} token={token} socket={socket} author={author} userId={user?user.id:null}  />
+      <Suspense fallback={<div><SpinnerLoader /></div>}>
+      <EditBlog id={blog._id} blog={blog} token={token} socket={socket} author={author} userId={user?user.id:null} user={user}  />
+      </Suspense>
+
     </Box>
   )
 }

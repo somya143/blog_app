@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useMemo, useState, useCallback } from 'react';
 import {
     Modal,
     ModalOverlay,
@@ -6,7 +6,6 @@ import {
     ModalHeader,
     ModalFooter,
     ModalBody,
-    ModalCloseButton,
     Button,
     InputRightElement,
     Input,
@@ -25,14 +24,16 @@ const Comment = ({userId,token,blogId,comments,blogAuthor}) => {
   const { socket } = useContext(SocketContext);
   const { loginAlert } = useLoginAlert();
   const dispatch = useDispatch();
-  const handleSubmit = (e) => {
+  const memoizedComment = useMemo(() => comments
+  , [comments])
+  const handleCommentSubmit = useCallback((e) => {
     e.preventDefault();
     if(!userId){
       return loginAlert()
     }else{
       dispatch(commentBlog({socket,token,blogId,comment:text}))
     }
-  }
+  }, [blogId,dispatch,loginAlert,socket,token,text,userId]);
   return (
     <>
      <Button onClick={onOpen} variant={"unstyled"} color={"blue.600"} fontSize={"20px"} pt={"10px"}>{comments.length===1?`View comment`: comments.length>1?`View All ${comments.length} Comments`:"Comment"}</Button>
@@ -41,7 +42,7 @@ const Comment = ({userId,token,blogId,comments,blogAuthor}) => {
   <ModalOverlay />
   <ModalContent>
     <ModalHeader>
-             <form onSubmit={handleSubmit}>
+             <form onSubmit={handleCommentSubmit}>
                  <InputGroup>
                    <Input type='text' placeholder='Write your comment here' value={text} onChange={(e) => setText(e.target.value)} />
                    <InputRightElement>
@@ -65,7 +66,7 @@ const Comment = ({userId,token,blogId,comments,blogAuthor}) => {
                 },
               }}>
                 {
-                  comments.map((el) => (
+                  memoizedComment?.map((el) => (
                     <SingleComment key={el._id} blogId={blogId} userId={userId} blogAuthor={blogAuthor} comment={el} />
                   ))
                 }

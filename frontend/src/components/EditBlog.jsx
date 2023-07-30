@@ -14,9 +14,9 @@ import { Box,
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { useDispatch } from "react-redux";
-import { getBlogs, updateBlog } from '../redux/blog/blog.action';
+import { updateBlog } from '../redux/blog/blog.action';
 
-const EditBlog = ({blog,token,socket,userId,author}) => {
+const EditBlog = React.memo(({blog,token,socket,userId,author,user}) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [post , setPost] = useState({...blog});
     const dispatch = useDispatch();
@@ -34,14 +34,30 @@ const EditBlog = ({blog,token,socket,userId,author}) => {
         isClosable: true,
       });
     };
+    const showErrorToast = () => {
+      toast({
+        title: `Hello ${user.name} `,
+        description: `You have missed following input. Kindly fill to edit`,
+        status: 'error',
+        position: "top",
+        duration: 4000,
+        isClosable: true,
+      });
+    };
     const handleClick = () => {
-      (author._id===userId && author !== null)?dispatch(updateBlog({
+      if(!post.title || !post.content){
+        return showErrorToast();
+        
+      }
+      if(author._id===userId && author !== null){
+        dispatch(updateBlog({
             id:blog._id,
             token,
             socket,
             title:post.title,
             content :post.content
-        })): (showToastMessage())
+        }))}
+        else{(showToastMessage())}
         onClose()
     }
   return (
@@ -86,6 +102,6 @@ const EditBlog = ({blog,token,socket,userId,author}) => {
       </Modal>
     </>
   )
-}
+})
 
 export default EditBlog

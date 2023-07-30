@@ -1,5 +1,5 @@
 import { Box, Center, Flex, Text, Image } from '@chakra-ui/react'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import Sidebar from '../components/Sidebar';
 import jwtDecode from 'jwt-decode';
 import { useSelector } from 'react-redux';
@@ -12,9 +12,13 @@ const SingleBlogView = () => {
   const { id } = useParams();
   const user = token? jwtDecode(token):null;
   const [blog , setBlog] = useState(null);
+  const formattedDate = useMemo(() => {
+    return moment(new Date(blog?.createdAt?.toLocaleString())).format(
+      ` MMMM Do YYYY, h:mm:ss a`
+  )
+  }, [blog])
   useEffect(() => {
     data && setBlog(data.find((el) => el._id === id));
-    
   }, [data,id])
   console.log(blog)
   //console.log(blog.author.name)
@@ -22,20 +26,15 @@ const SingleBlogView = () => {
     <Box  minh="100vh" bg="rgba(0,0,0,91%)">
         
           <Box w="90%" m="auto" py="20px " pb="70px">
-            {blog && blog.author && blog.author!==null?   (<Text fontSize="20px" fontWeight="400" color="whiteAlpha.800">
+            { blog?.author && blog.author!==null &&   (<Text fontSize="20px" fontWeight="400" color="whiteAlpha.800">
              Author's Name : {blog.author.name}
-          </Text>)
-          :
-          (<Text color={"#fff"}>Author is anonymus</Text>)
-          }
+          </Text>)}
 
            <Text color={"#fff"}>
-            {moment(new Date(blog && blog.createdAt.toLocaleString())).format(
-                ` MMMM Do YYYY, h:mm:ss a`
-            )}
+            {formattedDate}
           </Text>
           <Image
-              src={blog && blog.image}
+              src={blog?.image}
               w="100%"
               h="60vh"
               objectFit="cover"
@@ -48,7 +47,7 @@ const SingleBlogView = () => {
               color="whiteAlpha.800"
               mb="10px"
             >
-              {blog && blog.title}
+              {blog?.title}
             </Text>
             <Text
               fontWeight="200"
@@ -56,7 +55,7 @@ const SingleBlogView = () => {
               color="whiteAlpha.800"
               mb="10px"
             >
-              {blog && blog.content}
+              {blog?.content}
             </Text>
           </Box>
         
