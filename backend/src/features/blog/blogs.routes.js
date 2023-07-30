@@ -4,7 +4,7 @@ const authMiddleware = require("../../middleware/authMiddleware");
 const app = express.Router();
 
 app.get("/" , async(req,res) => {
-    const { limit,page } = req.query
+    const { limit=2,page=1 } = req.query
     try {
         const blog = await Blog.find().limit(limit).skip((page-1)*limit).sort({_id:-1}).populate({path: "author" , select:["name","_id","email","age"]})
         .populate({path: "comment.commentAuthor" , select:["name","_id","email"]})

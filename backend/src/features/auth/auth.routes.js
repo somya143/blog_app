@@ -5,7 +5,6 @@ const argon2 = require("argon2");
 const Auth = require("./auth.model");
 
 app.post("/refresh", async (req, res) => {
-    // redis.push(token)
     try {
       const { refreshToken } = req.body;
       const verification = jwt.verify(refreshToken, "REFRESH_TOKEN_SECRET@1991");
@@ -41,7 +40,6 @@ app.post("/login" , async(req,res) => {
   try {
     const user = await Auth.findOne({ email });
     const match = await argon2.verify(user.password, password);
-    console.log(match)
     if (match) {
       const token = jwt.sign(
         { id: user._id, email, password: user.password, name: user.name },
