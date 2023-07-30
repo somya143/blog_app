@@ -36,7 +36,7 @@ const Comment = ({userId,token,blogId,comments,blogAuthor}) => {
   }, [blogId,dispatch,loginAlert,socket,token,text,userId]);
   return (
     <>
-     <Button onClick={onOpen} variant={"unstyled"} color={"blue.600"} fontSize={"20px"} pt={"10px"}>{comments.length===1?`View comment`: comments.length>1?`View All ${comments.length} Comments`:"Comment"}</Button>
+     <Button onClick={onOpen} variant={"unstyled"} color={"blue.600"} fontSize={"20px"} pt={"10px"}>{comments?.length===1?`View comment`: comments?.length>1?`View All ${comments?.length} Comments`:"Comment"}</Button>
 
 <Modal isOpen={isOpen} onClose={onClose}>
   <ModalOverlay />
