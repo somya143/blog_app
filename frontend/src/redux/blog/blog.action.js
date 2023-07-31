@@ -3,10 +3,10 @@ import { comment_blog_failure, comment_blog_loading, comment_blog_success, delet
 import { axios_instance } from "../../utils/axios_instance";
 
 const api = process.env.REACT_BASE_API || "https://mybloggingapp.onrender.com"
-export const getBlogs = (page=1,limit=2) => async(dispatch) => {
+export const getBlogs = ({ page,limit }) => async(dispatch) => {
     dispatch({ type: get_blog_loading });
     try {
-        const response =  await axios.get(`${api}/blogs`);
+        const response =  await axios.get(`${api}/blogs?limit=${limit}&page=${page}`);
         dispatch({ type: get_blog_success, payload: response.data })
         return response.data;
         } catch (error) {

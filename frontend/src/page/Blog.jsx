@@ -12,18 +12,25 @@ import SpinnerLoading from '../components/SpinnerLoading';
 
 const Blog = () => {
   const [page , setPage] = useState(1);
+  const [limit, setLimit] = useState(2);
   const { socket } = useContext(SocketContext);
   const { isError , isLoading, data } = useSelector((store) => store?.blog)
   const dispatch = useDispatch();
   const { token } = useSelector((store) => store?.auth);
   const user = token?jwtDecode(token): null;
-  const fetchData = (page) => {
-    dispatch(getBlogs(page));
+  const fetchData = (params) => {
+    dispatch(getBlogs(params));
   };
   
   useEffect(() => {
-    fetchData(page);
-  }, [page,dispatch]);
+    let params = {
+      limit : limit,
+      page: page
+    };
+    fetchData(params);
+  }, [dispatch,limit,page]);
+
+  
 
   const memoisedData = useMemo(() => data, [data]);
   

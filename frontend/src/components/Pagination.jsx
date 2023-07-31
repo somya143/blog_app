@@ -1,7 +1,7 @@
 import React from "react";
 import {Stack , Button , Box, HStack} from "@chakra-ui/react";
 
-const Pagination = ({current,handlePageClick}) => {
+const Pagination = ({current,handlePageClick,data,limit}) => {
     const prev = (
         <Button backgroundColor="orange" color="white" variant={"unstyled"} isDisabled={current===1?true:false}  onClick={() => handlePageClick(current-1)} >
           Prev
