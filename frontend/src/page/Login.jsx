@@ -6,7 +6,9 @@ import {
     Box,
     Heading,
     Button,
-    Flex
+    Flex,
+    Link,
+    Text
   } from '@chakra-ui/react';
 
 import { useDispatch,useSelector } from "react-redux";
@@ -15,6 +17,7 @@ import Loading from '../components/Loading';
 import Error from "../components/Error";
 import { useLocation, useNavigate } from "react-router-dom";
 import Sidebar from '../components/Sidebar';
+import { Link as ReachLink } from "react-router-dom";
 
 const Login = () => {
     const [login , setLogin] = useState({});
@@ -72,6 +75,13 @@ const Login = () => {
 </FormControl>
 
 <Button type='submit' mt={"30px"} w={"100%"} h={"3rem"} fontSize={"27px"} variant={"ghost"} backgroundColor={"orange"} color={"#fff"}>Login</Button>
+<Box>
+  <Text color={"orange"}>If you are new, Kindly Register yourself first</Text> 
+                  <Link as={ReachLink} to="/register" color={"orange"} textDecoration={"underline"} >
+                     Register
+                  </Link>
+              
+</Box>
 </form>    
 </Box>
 </Flex>

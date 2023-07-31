@@ -13,7 +13,10 @@ import {
     Button,
     useToast,
     Flex,
-    Center
+    Center,
+    Link,
+    ListItem,
+    List
   } from '@chakra-ui/react';
   import "./register.css"
 
@@ -24,6 +27,7 @@ import Error from '../components/Error';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import { SocketContext } from '../context/SocketContext';
+import { Link as ReachLink } from "react-router-dom";
 
 const Register = () => {
 const [register , setRegister] = useState({});
@@ -53,7 +57,7 @@ const handleChange = (e) => {
         position: "top",
         duration: 2000,
         isClosable: true,
-      }) && navigate("/login")
+      })? navigate("/login") : navigate("/registeration")
     }
   }, [isSignUp,navigate,toast])
   
@@ -100,9 +104,18 @@ const handleChange = (e) => {
 </FormControl>
 
 <Button type='submit' mt={"30px"} w={"100%"} h={"3rem"} fontSize={"27px"} variant={"ghost"} backgroundColor={"green.300"} color={"#fff"}>Register</Button>
+<Box>
+  <Text color={"orange"}>If you are already an user. Kindly login</Text> 
+                  <Link as={ReachLink} to="/login" color={"orange"} textDecoration={"underline"} >
+                     Login
+                  </Link>
+              
+</Box>
 </form>    
 </Box>
 </Flex>
+
+
     </Box>
   )
 }

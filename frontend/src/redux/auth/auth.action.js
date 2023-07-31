@@ -6,7 +6,6 @@ export const getRegister = (payload) => async(dispatch) => {
     try {
     const response = await axios.post(`${api}/auths/signup`, payload);
     dispatch({type: auth_register_success , payload : response.data})
-    payload.socket.emit("new-user-signedup" , response.data)
     return response.data; 
     } catch (error) {
         dispatch({type: auth_register_failure , payload : error.message})
