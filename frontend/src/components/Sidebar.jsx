@@ -70,13 +70,6 @@ const Sidebar = () => {
               </ListItem>
 
               <ListItem my={9} alignItems={"center"}>
-                  <Link as={ReachLink} to="/trending" color={"orange"} >
-                    <ListIcon as={FcBullish}  mr={3} />
-                     Trending
-                  </Link>
-              </ListItem>
-
-              <ListItem my={9} alignItems={"center"}>
                   <Link as={ReachLink} to="/write" color={"orange"} >
                     <ListIcon as={FcEditImage}  mr={4} />
                      Write
